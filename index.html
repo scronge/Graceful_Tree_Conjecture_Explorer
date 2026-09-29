@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Graceful trees · local research gallery</title><style>:root{--background:#f8fafc;--surface:#ffffff;--text:#1f2937;--muted:#475569;--border:#cbd5e1;--primary:#0d9488;--secondary:#7c3aed;--highlight:#d97706;}
+:root{font-family:system-ui,sans-serif;color:var(--text);background:var(--background)}*{box-sizing:border-box}body{margin:0}header{background:var(--text);color:#fff;padding:36px max(24px,calc((100vw - 1400px)/2))}h1{font-size:44px;margin:8px 0}h2{margin-top:24px}.eyebrow{letter-spacing:.18em;color:#91d8c8;font-size:12px}.safeguard{max-width:1000px;font-size:13px;color:#d3e1e7;line-height:1.6}main{max-width:1448px;margin:auto;padding:24px}.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end;padding:16px;background:#e7eeee;border-radius:8px;margin:12px 0}label{display:inline-flex;flex-direction:column;gap:5px;font-size:12px}label:has(input[type=checkbox]){flex-direction:row;align-items:center}input,select,button{font:inherit;padding:8px;border:1px solid var(--border);border-radius:5px;background:white;color:var(--text)}input[type=number]{width:100px}button{cursor:pointer}button:hover{border-color:var(--primary);background:#eefbf7}.group{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}.card{text-align:left;padding:16px;border:1px solid #d4dfe1;border-radius:9px;box-shadow:0 3px 12px #18374708}.card strong{font-size:16px}.card p{margin:7px 0;font-size:12px}.card svg{height:160px}.views{display:grid;grid-template-columns:1fr 1fr;gap:24px}.views article,details{background:white;padding:16px;border:1px solid #d5dfe3;border-radius:8px;margin:10px 0}.views svg{width:100%;max-height:430px}svg{width:100%;font-family:system-ui,sans-serif}svg .edge{stroke:#94a3b8;stroke-width:3}svg .crossing{stroke:var(--primary);stroke-width:5}svg .maximum{stroke-width:6}svg .edgeLabel{fill:#8c4315;font-size:13px;paint-order:stroke;stroke:white;stroke-width:5px}svg .vertex{fill:#fff;stroke:var(--muted);stroke-width:2}svg .port{fill:#fddca4;stroke:#b6690a;stroke-width:3}svg .root{stroke:var(--secondary);stroke-width:4}svg .changed{fill:#fff0d7}svg .same{fill:#e1f2ee}svg .cut{stroke:var(--highlight);stroke-width:2;stroke-dasharray:7 5}svg text{fill:var(--text)}svg .vid{font-size:10px}svg .value{font-size:17px;font-weight:700}.section-title{display:flex;align-items:center;justify-content:space-between}#detail{border-top:4px solid var(--primary);margin-top:28px}table{border-collapse:collapse;margin:12px 0;width:100%;font-size:13px}td,th{padding:7px;border:1px solid #d0dde1;text-align:center}.on{background:#b4e3da}.selected{outline:2px solid #da891e}.changed{background:#fff0d7}.same{background:#e1f2ee}#comparison{overflow:auto}summary{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #db8d29}@media(max-width:800px){.views{grid-template-columns:1fr}h1{font-size:34px}main{padding:12px}}
+#glossary{margin-top:36px;border-top:2px solid var(--border);padding-top:12px;line-height:1.65}#glossary h3{margin-top:0}#glossary svg{display:block;max-height:none}.glossary-terms{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:12px 20px;background:white;padding:20px;border-radius:8px}.glossary-terms dt{font-weight:700}.glossary-terms dd{margin:0}.proof-target{border-left:4px solid var(--secondary);padding:14px 20px;background:#eee9f5}@media(max-width:600px){.glossary-terms{grid-template-columns:1fr;gap:5px}.glossary-terms dd{margin-bottom:14px}}
+
+#transferAnimation{background:white;padding:20px;border:1px solid #d5dfe3;border-radius:8px;margin:20px 0}#animationDrawing{max-width:760px;margin:auto}#animationProgress{width:220px}#animationWitness{line-height:1.6}
+
+.cat-a{color:var(--highlight)}.cat-b{color:var(--primary)}.cat-bridge{color:var(--secondary)}.cat-word{font-family:monospace;font-size:22px;overflow-wrap:anywhere}#catalanMotion{max-width:760px;margin:auto}#catalanView p{line-height:1.6}
+
+/* Compact desktop workspace; keep comfortable controls and stack on small screens. */
+body{font-size:14px}header{padding:12px 24px}header h1{font-size:28px;margin:2px 0}header p{margin:4px 0}.eyebrow{font-size:10px}.safeguard{max-width:none;font-size:11px;line-height:1.35}main{max-width:1880px;padding:12px 20px}h2{font-size:20px;margin:12px 0 6px}h3{font-size:15px;margin:5px 0}p{margin:7px 0;line-height:1.4}.controls{gap:7px;padding:9px;margin:7px 0}input,select,button{padding:6px}label{font-size:11px}.views{gap:10px}.views article,details{padding:10px;margin:6px 0}.views svg{max-height:230px}#detail{margin-top:12px}.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}#transferAnimation{margin:0;padding:10px}#animationDrawing{max-width:460px}#animationDrawing svg{max-height:235px}#animationProgress{width:150px}#catalanMotion{max-width:500px}#catalanMotion svg{height:65px}.cat-word{font-size:18px;margin:3px 0}.catalan-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.catalan-grid article{min-width:0;padding:8px;background:#f6f9f9;border-radius:6px}.catalan-grid svg{display:block;max-height:180px}#catalanBeforePath svg,#catalanAfterPath svg{max-height:130px}#catalanPolygon svg{max-height:265px}.cat-expression{font-family:monospace;font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}#catalanView p{line-height:1.4}#glossary{margin-top:18px}#glossary svg{max-height:210px}.glossary-terms{padding:12px;gap:7px 14px}summary{font-weight:600}#catalanProgress{width:150px}@media(max-width:1000px){.overview-grid{grid-template-columns:1fr}.catalan-grid{grid-template-columns:1fr 1fr}.catalan-grid article:last-child{grid-column:1/-1}}@media(max-width:600px){.catalan-grid{grid-template-columns:1fr}header{padding:10px 12px}main{padding:10px}.views svg{max-height:250px}}
+[data-keyboard-nav]:focus-visible{outline:2px solid var(--primary);outline-offset:3px}.keyboard-hint{font-size:12px;color:#46616e}
+.encoding-transfer{background:#f6f9f9;padding:10px;border-radius:6px}.encoding-endpoints{display:grid;grid-template-columns:1fr 1fr;gap:12px}.encoding-endpoints article{display:grid;grid-template-columns:140px 1fr;gap:6px;align-items:center}.encoding-endpoints h4{grid-column:1/-1;margin:4px 0}.encoding-endpoints svg{max-height:125px}.expression-stage{display:grid;font:16px monospace;overflow-wrap:anywhere;min-height:26px}.expression-stage>div{grid-area:1/1}.encoding-endpoints .cat-expression{font-size:13px}@media(max-width:700px){.encoding-endpoints{grid-template-columns:1fr}}
+
+#configurationView .catalan-grid svg{max-height:290px}#configWord{white-space:pre-wrap}#configRootSets table{font-size:11px;margin:4px 0}#configRootSets td,#configRootSets th{padding:2px}#configCycle [data-corner]:focus{outline:none}#configCycle [data-corner]:focus circle{stroke-width:4}
+
+button[data-shortcut]::after{content:attr(data-shortcut);display:inline-block;margin-left:7px;padding:1px 4px;border:1px solid #bdccd1;border-radius:3px;font:11px monospace;background:#edf3f4;color:#385364}kbd{font:11px monospace;padding:1px 4px;border:1px solid #bdccd1;border-radius:3px;background:#fff}button:focus-visible,summary:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+
+.witness-pages{display:inline-flex;align-items:center;gap:5px;flex-wrap:wrap;font-size:11px}.witness-pages input{width:65px}.witness-pages button{font-size:11px;padding:5px}
+</style></head>
+<body><header><span class="eyebrow">EXACT · LOCAL · REPRODUCIBLE</span><h1>Graceful trees</h1><p>Explore labelings, extension cuts, and adjacent root transfers.</p>
+<p class="safeguard">Finite computations shown here are for discovery and falsification only. They are not evidence for the Graceful Tree Conjecture or adjacent-root-transfer theorem.</p></header>
+<main><p><a href="data/overview.html">View all rerootings side by side</a> · <a href="data/overview.html">Browse or export the SVG overview</a></p><p id="status" role="status">Loading local catalog. Run generate.py first if no catalog appears.</p>
+<section id="treeBrowser" class="controls" aria-label="Browse trees" data-keyboard-nav="trees" tabindex="0">
+<label>Number of vertices (n) <select id="order"></select></label>
+<label>Tree <select id="treeSelect"></select></label>
+<button id="treePrev" data-shortcut="&#8592;" aria-keyshortcuts="ArrowLeft">Previous tree</button><button id="treeNext" data-shortcut="&#8594;" aria-keyshortcuts="ArrowRight">Next tree</button></section>
+<p class="keyboard-hint">Keyboard: <kbd>1</kbd> Trees &middot; <kbd>2</kbd> Transfer &middot; <kbd>3</kbd> Configuration cycle &middot; <kbd>4</kbd> Catalan. <kbd>&#8592;</kbd>/<kbd>&#8594;</kbd> browse the focused panel; <kbd>Space</kbd> plays/pauses; <kbd>R</kbd> resets. <kbd>Tab</kbd> moves between controls; <kbd>Enter</kbd> activates a button. Dropdowns and sliders keep their normal keys.</p>
+<section id="detail" hidden><h2 id="treeTitle"></h2>
+<div class="overview-grid"><div class="tree-overview"><p id="browseInfo"></p><div class="views"><article><h3>Tree</h3><div id="browseGraph"></div></article><article><h3>Labels by height</h3><div id="browseSlab"></div></article></div>
+<p>Each circle shows its vertex ID and label. Numbers on edges are the label differences. One graceful labeling is shown for each tree.</p>
+</div><section id="transferAnimation" aria-labelledby="animationTitle" data-keyboard-nav="transfer" tabindex="0">
+<h3 id="animationTitle">Watch a root transfer</h3>
+<p>Circles carry vertex labels; teal diamonds carry edge lengths. Both move to their new positions together; dashed teal trails show the edge-length routes. Unchanged tokens stay in place. Purple marks the extendable root at each endpoint.</p>
+<div class="controls"><button id="animationPrevEdge" data-shortcut="Shift+&#8592;" aria-keyshortcuts="Shift+ArrowLeft">Previous edge</button><button id="animationNextEdge" data-shortcut="Shift+&#8594;" aria-keyshortcuts="Shift+ArrowRight">Next edge</button><button id="animationPrev" data-shortcut="&#8592;" aria-keyshortcuts="ArrowLeft">Previous pair</button><button id="animationNext" data-shortcut="&#8594;" aria-keyshortcuts="ArrowRight">Next pair</button><button id="animationPlay" data-shortcut="Space" aria-keyshortcuts="Space">Play transfer</button><label><input id="animationLoop" type="checkbox">Loop</label><button id="animationReset" data-shortcut="R" aria-keyshortcuts="r">Reset</button><label>Before → after <input id="animationProgress" type="range" min="0" max="1000" value="0"></label></div>
+<p id="animationPosition" role="status"></p><p>Pairs include every combination of raw witnesses for the two roots, including common labelings. Each endpoint shows its first valid cut. Next pair wraps to the next edge after its last pair.</p>
+<p id="animationStatus" role="status"></p><div id="animationDrawing"></div><p id="animationWitness"></p>
+<p>Only the before and after arrangements are verified graceful labelings. Moving tokens illustrate their permutation; intermediate frames are not labelings or a proved transfer algorithm.</p>
+</section>
+</div><details id="configurationView" data-keyboard-nav="configurations" tabindex="0" open><summary>The structure of all rerootings</summary>
+<div class="controls"><button id="configPrev" data-shortcut="&#8592;" aria-keyshortcuts="ArrowLeft">Previous corner</button><button id="configNext" data-shortcut="&#8594;" aria-keyshortcuts="ArrowRight">Next corner</button></div><p id="configStatus" role="status"></p>
+<div class="catalan-grid"><article><h3>Contour cycle of this tree</h3><div id="configCycle"></div><p>One fixed cyclic order of neighbors (by vertex ID). Each step crosses an edge; the tour visits all 2m corners. Click a corner to select it.</p></article><article><h3>Positions in the associahedron graph</h3><div id="configAssociahedron"></div><p id="configGraphInfo"></p><p>Gray: all single-flip edges. Orange: encodings reached on this contour cycle. Purple: a route through the fan for the selected step. The circular layout is a graph drawing, not a geometric realization of the polytope.</p></article><article><h3>Selected encoding and witnesses</h3><div id="configPolygon"></div><p id="configWord" class="cat-expression"></p><p id="configWitness"></p><div id="configRootSets"></div></article></div>
+<p>Moving around the contour changes the root and traversal order, not the graceful labels. Witness sets Wᵣ contain raw graceful labelings extendable at r. Their sizes do not provide a rule for transferring one witness to another.</p>
+</details><details id="catalanView" data-keyboard-nav="catalan" tabindex="0" open><summary>Catalan view: parentheses, Dyck paths and polygon triangulations</summary>
+<p>Each downward edge traversal writes <strong>(</strong>; its return writes <strong>)</strong>. These are also the up and down steps of a Dyck path. Heights here are distances from the root, not graceful labels.</p>
+<div class="controls"><button id="catalanPrev" data-shortcut="&#8592;" aria-keyshortcuts="ArrowLeft">Previous rerooting</button><button id="catalanEdge" data-shortcut="&#8594;" aria-keyshortcuts="ArrowRight">Next rerooting</button><button id="catalanPlay" data-shortcut="Space" aria-keyshortcuts="Space">Animate rerooting + flips</button><label><input id="catalanLoop" type="checkbox">Loop</label><button id="catalanReset" data-shortcut="R" aria-keyshortcuts="r">Reset</button><label>Animation <input id="catalanProgress" type="range" min="0" max="1000" value="0"></label></div><p id="catalanPosition" role="status"></p>
+<p id="catalanStatus" role="status"></p><div id="catalanFormula"></div><div id="catalanMotion"></div>
+<div class="encoding-transfer"><h3>The same rerooting in parenthesizations and polygons</h3><p id="encodingRootStatus" role="status"></p><div class="encoding-endpoints"><article><h4 id="encodingBeforeTitle"></h4><div id="polygonBeforeEndpoint"></div><p id="expressionBeforeEndpoint" class="cat-expression"></p></article><article><h4 id="encodingAfterTitle"></h4><div id="polygonAfterEndpoint"></div><p id="expressionAfterEndpoint" class="cat-expression"></p></article></div><div id="parenthesisAnimation"></div><p>The endpoint badges identify the root of the original tree being encoded. A polygon corner is not a tree root. Each diagonal flip corresponds to a binary reassociation; the intermediate expressions encode intermediate triangulations, not necessarily rerootings of the same tree.</p></div>
+<div class="catalan-grid"><article><h3>Before: root u</h3><div id="catalanBeforeTree"></div><div id="catalanBeforePath"></div></article><article><h3>After: root v</h3><div id="catalanAfterTree"></div><div id="catalanAfterPath"></div></article><article><h3>Regular polygon: diagonal flips</h3><div id="catalanPolygon"></div><p id="polygonStatus" role="status"></p><p id="polygonExpressions" class="cat-expression"></p></article></div>
+<p>For m tree edges, the polygon has m+2 vertices. Its vertex numbers are polygon positions, not the tree's graceful labels. Decode the Dyck word recursively as (L)R: L and R become the two children of a binary expression and the two regions adjoining a base triangle. Teal diagonals stay; orange fades out and purple fades in at each flip. Each completed flip is a valid triangulation; the crossfade is only an illustration.</p>
+<p>The flip sequence goes through the fan at polygon vertex 0. It connects the encoded endpoints; it is not a canonical root-transfer rule or necessarily the shortest sequence.</p>
+<p><span class="cat-a">A: the branches at v away from u.</span> <span class="cat-b">B: the other branches at u.</span> Purple parentheses represent the edge u–v. Empty blocks are written ∅.</p>
+<p>We place v first among u's children before rerooting, and u last among v's children afterward. Other children are ordered by vertex ID. This makes <strong>(A)B → A(B)</strong> exact. The tree and its graceful labels stay fixed; extendability at the new root is not implied.</p>
+<p>With m edges, the path has m up steps and m down steps. Catalan numbers count these rooted, ordered encodings; different encodings can describe the same unordered tree. The parentheses here encode traversal, not a binary expression. Binary parenthesizations and polygon triangulations are other Catalan families, but their usual rotations and flips do not automatically represent rerooting this fixed tree.</p>
+</details>
+<details id="advanced" open><summary>Advanced: labelings, cuts and root transfers</summary>
+<p>These controls affect only the research views below. The tree above stays visible.</p>
+<div class="controls">
+<label>Root <select id="root"></select></label><label>Second vertex <select id="second"></select></label>
+<label>Root degree <input id="rootDegree" type="number" min="1"></label>
+<label><input type="checkbox" id="atRoot">Extendable at root</label>
+<label><input type="checkbox" id="atBoth">Extendable at both vertices</label>
+<label>Cut c <input id="cutFilter" type="number" min="1"></label>
+<label>Threshold k <input id="thresholdFilter" type="number" min="1"></label>
+<label>Show <select id="quotient"><option value="aut">Automorphism representatives</option><option value="raw">Every raw labeling</option><option value="complement">Automorphisms + complement</option><option value="root">Automorphisms fixing root</option><option value="pair">Automorphisms fixing both vertices</option></select></label>
+<label>Labeling <select id="labeling"></select></label><span class="witness-pages"><button id="labelingBack">Previous page</button><label>Page <input id="labelingPage" type="number" min="1" value="1"></label><button id="labelingMore">Next page</button><span id="labelingPageInfo"></span></span><label>Extension cut / port <select id="extension"></select></label></div>
+<p id="labelMeta"></p><p id="cutInfo"></p><div class="views"><article><h3>Graph view</h3><div id="graph"></div></article><article><h3>Height / slab view</h3><div id="slab"></div></article></div>
+<details open><summary>Edge-height intervals and crossing matrix</summary><div class="views"><div id="interval"></div><div id="matrix"></div></div></details>
+<div class="controls"><button id="exportGraph6">Export graph6</button><button id="exportLabel">Export labeling JSON</button><label>SVG panel <select id="svgPanel"><option>graph</option><option>slab</option><option>interval</option><option>leftPanel</option><option>rightPanel</option></select></label><button id="exportSVG">Export SVG</button></div>
+<h2>Adjacent root transfer</h2><p>Each side exposes every raw witness for its selected root. Reverse the ordered edge to exchange roots.</p>
+<div class="controls"><label>Ordered edge <select id="pair"></select></label><label>Vertex support size <input id="support" type="number" min="0"></label><label>Edge support size <input id="edgeSupport" type="number" min="0"></label><button id="exportTransfer">Export transfer JSON</button></div><p id="pairInfo"></p>
+<div class="views"><article><h3 id="leftTitle"></h3><label>Raw witness <select id="leftWitness"></select></label><span class="witness-pages"><button id="leftWitnessBack">Previous page</button><label>Page <input id="leftWitnessPage" type="number" min="1" value="1"></label><button id="leftWitnessMore">Next page</button><span id="leftWitnessPageInfo"></span></span><button id="leftPrev">Previous</button><button id="leftNext">Next</button><label>Cut <select id="leftCut"></select></label><div id="leftPanel"></div><p id="leftInfo"></p></article>
+<article><h3 id="rightTitle"></h3><label>Raw witness <select id="rightWitness"></select></label><span class="witness-pages"><button id="rightWitnessBack">Previous page</button><label>Page <input id="rightWitnessPage" type="number" min="1" value="1"></label><button id="rightWitnessMore">Next page</button><span id="rightWitnessPageInfo"></span></span><button id="rightPrev">Previous</button><button id="rightNext">Next</button><label>Cut <select id="rightCut"></select></label><div id="rightPanel"></div><p id="rightInfo"></p></article></div>
+<div id="comparison"></div></details></section>
+<section id="glossary" aria-labelledby="glossaryTitle">
+<h2 id="glossaryTitle">Root transfer: an illustrated glossary</h2>
+<p>The goal is to find a proof of the Graceful Tree Conjecture. Root transfer is a proposed way to make leaf-by-leaf extension possible.</p>
+<div class="views">
+<article><h3>1. Change the labeling, keep the tree</h3>
+<svg viewBox="0 0 560 230" role="img" aria-labelledby="transferTitle transferDesc">
+<title id="transferTitle">Transfer extendability from u to its neighbor v</title>
+<desc id="transferDesc">Two drawings of the same three-vertex path. The chosen root is u in the first and v in the second. Purple outlines mark the roots. This is a schematic, not a numerical witness.</desc>
+<text x="25" y="30">Witness at u</text><text x="330" y="30">Seek a witness at v</text>
+<path class="edge" d="M50 95H140L215 155 M345 95H435L510 155" fill="none"/>
+<circle class="vertex root" cx="50" cy="95" r="24"/><circle class="vertex" cx="140" cy="95" r="24"/><circle class="vertex" cx="215" cy="155" r="24"/>
+<circle class="vertex" cx="345" cy="95" r="24"/><circle class="vertex root" cx="435" cy="95" r="24"/><circle class="vertex" cx="510" cy="155" r="24"/>
+<g text-anchor="middle"><text x="50" y="101">u</text><text x="140" y="101">v</text><text x="215" y="161">w</text><text x="345" y="101">u</text><text x="435" y="101">v</text><text x="510" y="161">w</text></g>
+<path d="M250 110H300L289 102 M300 110L289 118" stroke="#087e8b" stroke-width="3" fill="none"/>
+<text x="25" y="210">Purple outline = chosen root. All labels may change.</text>
+</svg>
+<p><strong>Root:</strong> the vertex where we want to attach a new leaf. It does not change the underlying tree.</p>
+<p><strong>Witness:</strong> a graceful labeling together with a valid extension cut and threshold at that root.</p>
+<p><strong>Root transfer:</strong> obtain some witness at v from the existence of a witness at its neighbor u. A single labeling need not work at both roots.</p>
+</article>
+<article><h3>2. Open a space for a new leaf</h3>
+<svg viewBox="0 0 560 230" role="img" aria-labelledby="cutTitle cutDesc">
+<title id="cutTitle">Shift labels above a numerical cut</title>
+<desc id="cutDesc">Before the shift, a cut lies between labels c minus one and c. After the shift, labels c and above have increased by one, leaving label c available for a new leaf.</desc>
+<text x="35" y="28">Before</text><text x="330" y="28">After shifting</text>
+<rect x="30" y="45" width="195" height="55" rx="8" fill="#d6eeea"/><rect x="325" y="45" width="205" height="55" rx="8" fill="#d6eeea"/>
+<text x="45" y="78">Labels c, …, n−1</text><text x="340" y="78">Labels c+1, …, n</text>
+<path class="cut" d="M20 120H235"/><text x="40" y="143">Cut between c−1 and c</text>
+<rect x="325" y="109" width="205" height="40" rx="8" fill="#fddca4"/><text x="340" y="135">Label c is now free</text>
+<rect x="30" y="165" width="195" height="45" rx="8" fill="#e7eeee"/><rect x="325" y="165" width="205" height="45" rx="8" fill="#e7eeee"/>
+<text x="45" y="193">Labels 0, …, c−1</text><text x="340" y="193">Unchanged: 0, …, c−1</text>
+<path d="M245 72H305L294 64 M305 72L294 80" stroke="#087e8b" stroke-width="3" fill="none"/>
+</svg>
+<p><strong>Cut c:</strong> a horizontal line between label heights c−1 and c. An edge crosses it when its endpoint labels lie on opposite sides.</p>
+<p><strong>Threshold k:</strong> a cut works when its crossing edge lengths are exactly k, k+1, …, n−1. Shifting the upper labels increases just these lengths by one, leaving edge length k unused.</p>
+<p><strong>Port:</strong> a root whose original label is <strong>c−k</strong> or <strong>c+k−1</strong>. After the shift, attaching a leaf labeled c at that root supplies the missing length k.</p>
+</article></div>
+<dl class="glossary-terms">
+<dt>Graceful labeling</dt><dd>Use vertex labels 0 through n−1 exactly once. The absolute differences along the edges must then be 1 through n−1 exactly once.</dd>
+<dt>Edge length</dt><dd>The absolute difference of endpoint labels, not the length of the line on the screen.</dd>
+<dt>Extendable at a root</dt><dd>There is a valid cut and port at that vertex, so the construction above gives a graceful labeling after adding a leaf there.</dd>
+<dt>Common vs. separate witnesses</dt><dd>A common witness is one labeling extendable at both roots, possibly with different cuts. Separate witnesses use different labelings. Root transfer allows either.</dd>
+<dt>Vertex-label and edge-length cycles</dt><dd>Bookkeeping for changes between two labelings on fixed vertices and edges. A cycle (a b c) means a becomes b, b becomes c, and c becomes a. These are permutation cycles, not loops in the tree; they do not by themselves prove a transfer rule.</dd>
+</dl>
+<p class="proof-target"><strong>The proposed transfer lemma:</strong> if a tree has a graceful labeling extendable at u, then it has some graceful labeling extendable at every neighbor v of u. This is the statement we want to prove, not an established result.</p>
+<p><strong>Why it would help:</strong> a graceful labeling is always extendable at its vertex labeled 0 using c=k=1. Transfer across adjacent edges would make every vertex available for leaf attachment, enabling an inductive proof starting with the two-vertex tree.</p>
+</section></main>
+<script>
+window.CATALOG_SUMMARY=[{"n":2,"tree_id":"n02_t0001","graph6":"A_","edges":[[0,1]],"degree_sequence":[1,1],"automorphism_count":2,"graceful_labeling_count_raw":2,"graceful_labeling_count_mod_aut":1,"stats":{"nodes":5,"pruned":0,"complete_labelings":2,"elapsed_seconds":0.0005563999875448644},"extendable_vertices":[0,1],"separate_only":false},{"n":3,"tree_id":"n03_t0001","graph6":"Bg","edges":[[0,1],[0,2]],"degree_sequence":[2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":4,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":14,"pruned":2,"complete_labelings":4,"elapsed_seconds":0.0013247999886516482},"extendable_vertices":[0,1,2],"separate_only":false},{"n":4,"tree_id":"n04_t0001","graph6":"Ci","edges":[[0,1],[0,2],[0,3]],"degree_sequence":[3,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":12,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":49,"pruned":12,"complete_labelings":12,"elapsed_seconds":0.003052499989280477},"extendable_vertices":[0,1,2,3],"separate_only":false},{"n":4,"tree_id":"n04_t0002","graph6":"Cq","edges":[[0,1],[0,3],[1,2]],"degree_sequence":[2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":4,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":41,"pruned":20,"complete_labelings":4,"elapsed_seconds":0.0009584999934304506},"extendable_vertices":[0,1,2,3],"separate_only":false},{"n":5,"tree_id":"n05_t0001","graph6":"DiO","edges":[[0,1],[0,2],[0,3],[0,4]],"degree_sequence":[4,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":48,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":198,"pruned":64,"complete_labelings":48,"elapsed_seconds":0.00517079999553971},"extendable_vertices":[0,1,2,3,4],"separate_only":false},{"n":5,"tree_id":"n05_t0002","graph6":"DqC","edges":[[0,1],[0,3],[1,2],[3,4]],"degree_sequence":[2,2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":8,"graceful_labeling_count_mod_aut":4,"stats":{"nodes":134,"pruned":104,"complete_labelings":8,"elapsed_seconds":0.0021068000060040504},"extendable_vertices":[0,1,2,3,4],"separate_only":false},{"n":5,"tree_id":"n05_t0003","graph6":"DqO","edges":[[0,1],[0,3],[0,4],[1,2]],"degree_sequence":[3,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":12,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":138,"pruned":100,"complete_labelings":12,"elapsed_seconds":0.001867000013589859},"extendable_vertices":[0,1,2,3,4],"separate_only":false},{"n":6,"tree_id":"n06_t0001","graph6":"EiP?","edges":[[0,1],[0,2],[0,3],[0,4],[0,5]],"degree_sequence":[5,1,1,1,1,1],"automorphism_count":120,"graceful_labeling_count_raw":240,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":973,"pruned":348,"complete_labelings":240,"elapsed_seconds":0.02287319998140447},"extendable_vertices":[0,1,2,3,4,5],"separate_only":false},{"n":6,"tree_id":"n06_t0002","graph6":"EpOG","edges":[[0,1],[0,4],[1,2],[2,3],[4,5]],"degree_sequence":[2,2,2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":24,"graceful_labeling_count_mod_aut":12,"stats":{"nodes":461,"pruned":500,"complete_labelings":24,"elapsed_seconds":0.004628800001228228},"extendable_vertices":[0,1,2,3,4,5],"separate_only":false},{"n":6,"tree_id":"n06_t0003","graph6":"EqD?","edges":[[0,1],[0,3],[0,5],[1,2],[3,4]],"degree_sequence":[3,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":16,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":453,"pruned":508,"complete_labelings":16,"elapsed_seconds":0.0033676000020932406},"extendable_vertices":[0,1,2,3,4,5],"separate_only":true},{"n":6,"tree_id":"n06_t0004","graph6":"EqP?","edges":[[0,1],[0,3],[0,4],[0,5],[1,2]],"degree_sequence":[4,2,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":36,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":541,"pruned":488,"complete_labelings":36,"elapsed_seconds":0.004872100020293146},"extendable_vertices":[0,1,2,3,4,5],"separate_only":false},{"n":6,"tree_id":"n06_t0005","graph6":"EsOG","edges":[[0,1],[0,4],[1,2],[1,3],[4,5]],"degree_sequence":[3,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":12,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":517,"pruned":512,"complete_labelings":12,"elapsed_seconds":0.002882999979192391},"extendable_vertices":[0,1,2,3,4,5],"separate_only":false},{"n":6,"tree_id":"n06_t0006","graph6":"EsP?","edges":[[0,1],[0,4],[0,5],[1,2],[1,3]],"degree_sequence":[3,3,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":48,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":617,"pruned":540,"complete_labelings":48,"elapsed_seconds":0.005430899997008964},"extendable_vertices":[0,1,2,3,4,5],"separate_only":false},{"n":7,"tree_id":"n07_t0001","graph6":"FiPA?","edges":[[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],"degree_sequence":[6,1,1,1,1,1,1],"automorphism_count":720,"graceful_labeling_count_raw":1440,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":5570,"pruned":1938,"complete_labelings":1440,"elapsed_seconds":0.1636875000258442},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0002","graph6":"FpOGG","edges":[[0,1],[0,4],[1,2],[2,3],[4,5],[5,6]],"degree_sequence":[2,2,2,2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":32,"graceful_labeling_count_mod_aut":16,"stats":{"nodes":1750,"pruned":2394,"complete_labelings":32,"elapsed_seconds":0.01270620001014322},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0003","graph6":"FpOGO","edges":[[0,1],[0,4],[1,2],[2,3],[4,5],[4,6]],"degree_sequence":[3,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":44,"graceful_labeling_count_mod_aut":22,"stats":{"nodes":1762,"pruned":2382,"complete_labelings":44,"elapsed_seconds":0.010405900015030056},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0004","graph6":"FpOI?","edges":[[0,1],[0,4],[0,6],[1,2],[2,3],[4,5]],"degree_sequence":[3,2,2,2,1,1,1],"automorphism_count":1,"graceful_labeling_count_raw":36,"graceful_labeling_count_mod_aut":36,"stats":{"nodes":1754,"pruned":2390,"complete_labelings":36,"elapsed_seconds":0.014182100014295429},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0005","graph6":"FqD?G","edges":[[0,1],[0,3],[0,5],[1,2],[3,4],[5,6]],"degree_sequence":[3,2,2,2,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":60,"graceful_labeling_count_mod_aut":10,"stats":{"nodes":2190,"pruned":2806,"complete_labelings":60,"elapsed_seconds":0.013662099983775988},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":true},{"n":7,"tree_id":"n07_t0006","graph6":"FqDA?","edges":[[0,1],[0,3],[0,5],[0,6],[1,2],[3,4]],"degree_sequence":[4,2,2,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":64,"graceful_labeling_count_mod_aut":16,"stats":{"nodes":1870,"pruned":2362,"complete_labelings":64,"elapsed_seconds":0.015153399988776073},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0007","graph6":"FqPA?","edges":[[0,1],[0,3],[0,4],[0,5],[0,6],[1,2]],"degree_sequence":[5,2,1,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":192,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":2470,"pruned":2442,"complete_labelings":192,"elapsed_seconds":0.022694300016155466},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0008","graph6":"FsOGO","edges":[[0,1],[0,4],[1,2],[1,3],[4,5],[4,6]],"degree_sequence":[3,3,2,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":48,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":1990,"pruned":2586,"complete_labelings":48,"elapsed_seconds":0.012298200017539784},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0009","graph6":"FsOI?","edges":[[0,1],[0,4],[0,6],[1,2],[1,3],[4,5]],"degree_sequence":[3,3,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":52,"graceful_labeling_count_mod_aut":26,"stats":{"nodes":1994,"pruned":2582,"complete_labelings":52,"elapsed_seconds":0.013199900015024468},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":true},{"n":7,"tree_id":"n07_t0010","graph6":"FsPA?","edges":[[0,1],[0,4],[0,5],[0,6],[1,2],[1,3]],"degree_sequence":[4,3,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":168,"graceful_labeling_count_mod_aut":14,"stats":{"nodes":2442,"pruned":2698,"complete_labelings":168,"elapsed_seconds":0.022165100002894178},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":7,"tree_id":"n07_t0011","graph6":"Fs`?G","edges":[[0,1],[0,5],[1,2],[1,3],[1,4],[5,6]],"degree_sequence":[4,2,2,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":48,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":2326,"pruned":2586,"complete_labelings":48,"elapsed_seconds":0.012833500019041821},"extendable_vertices":[0,1,2,3,4,5,6],"separate_only":false},{"n":8,"tree_id":"n08_t0001","graph6":"GiPAA?","edges":[[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7]],"degree_sequence":[7,1,1,1,1,1,1,1],"automorphism_count":5040,"graceful_labeling_count_raw":10080,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":37409,"pruned":12168,"complete_labelings":10080,"elapsed_seconds":1.4418753000209108},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0002","graph6":"GpD?GC","edges":[[0,1],[0,5],[1,2],[2,3],[3,4],[5,6],[6,7]],"degree_sequence":[2,2,2,2,2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":40,"graceful_labeling_count_mod_aut":20,"stats":{"nodes":7085,"pruned":11692,"complete_labelings":40,"elapsed_seconds":0.03676019998965785},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0003","graph6":"GpH?GC","edges":[[0,1],[0,5],[1,2],[2,3],[2,4],[5,6],[6,7]],"degree_sequence":[3,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":92,"graceful_labeling_count_mod_aut":46,"stats":{"nodes":7341,"pruned":11640,"complete_labelings":92,"elapsed_seconds":0.04344189999392256},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0004","graph6":"GpH?GG","edges":[[0,1],[0,5],[1,2],[2,3],[2,4],[5,6],[5,7]],"degree_sequence":[3,3,2,2,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":128,"graceful_labeling_count_mod_aut":16,"stats":{"nodes":7605,"pruned":11832,"complete_labelings":128,"elapsed_seconds":0.04605760000413284},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0005","graph6":"GpOGI?","edges":[[0,1],[0,4],[0,7],[1,2],[2,3],[4,5],[5,6]],"degree_sequence":[3,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":80,"graceful_labeling_count_mod_aut":40,"stats":{"nodes":7125,"pruned":11652,"complete_labelings":80,"elapsed_seconds":0.03914519998943433},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0006","graph6":"GpOGOO","edges":[[0,1],[0,4],[1,2],[2,3],[4,5],[4,6],[4,7]],"degree_sequence":[4,2,2,2,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":180,"graceful_labeling_count_mod_aut":30,"stats":{"nodes":7429,"pruned":11552,"complete_labelings":180,"elapsed_seconds":0.05088470000191592},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0007","graph6":"GpOGQ?","edges":[[0,1],[0,4],[0,7],[1,2],[2,3],[4,5],[4,6]],"degree_sequence":[3,3,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":76,"graceful_labeling_count_mod_aut":38,"stats":{"nodes":7325,"pruned":11656,"complete_labelings":76,"elapsed_seconds":0.0390653999929782},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0008","graph6":"GpOI?C","edges":[[0,1],[0,4],[0,6],[1,2],[2,3],[4,5],[6,7]],"degree_sequence":[3,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":92,"graceful_labeling_count_mod_aut":46,"stats":{"nodes":8057,"pruned":12996,"complete_labelings":92,"elapsed_seconds":0.04183120001107454},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0009","graph6":"GpOIA?","edges":[[0,1],[0,4],[0,6],[0,7],[1,2],[2,3],[4,5]],"degree_sequence":[4,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":144,"graceful_labeling_count_mod_aut":72,"stats":{"nodes":7317,"pruned":11588,"complete_labelings":144,"elapsed_seconds":0.046328999975230545},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0010","graph6":"Gp`?GC","edges":[[0,1],[0,5],[1,2],[1,4],[2,3],[5,6],[6,7]],"degree_sequence":[3,2,2,2,2,1,1,1],"automorphism_count":1,"graceful_labeling_count_raw":104,"graceful_labeling_count_mod_aut":104,"stats":{"nodes":7277,"pruned":11628,"complete_labelings":104,"elapsed_seconds":0.046326100011356175},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0011","graph6":"Gp`?GG","edges":[[0,1],[0,5],[1,2],[1,4],[2,3],[5,6],[5,7]],"degree_sequence":[3,3,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":108,"graceful_labeling_count_mod_aut":54,"stats":{"nodes":7841,"pruned":12184,"complete_labelings":108,"elapsed_seconds":0.04650480000418611},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0012","graph6":"Gp`?I?","edges":[[0,1],[0,5],[0,7],[1,2],[1,4],[2,3],[5,6]],"degree_sequence":[3,3,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":120,"graceful_labeling_count_mod_aut":60,"stats":{"nodes":7853,"pruned":12172,"complete_labelings":120,"elapsed_seconds":0.04463040002156049},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0013","graph6":"GqD?I?","edges":[[0,1],[0,3],[0,5],[0,7],[1,2],[3,4],[5,6]],"degree_sequence":[4,2,2,2,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":228,"graceful_labeling_count_mod_aut":38,"stats":{"nodes":8853,"pruned":13804,"complete_labelings":228,"elapsed_seconds":0.05214189999969676},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0014","graph6":"GqDAA?","edges":[[0,1],[0,3],[0,5],[0,6],[0,7],[1,2],[3,4]],"degree_sequence":[5,2,2,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":264,"graceful_labeling_count_mod_aut":22,"stats":{"nodes":8693,"pruned":12028,"complete_labelings":264,"elapsed_seconds":0.06419760000426322},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0015","graph6":"GqPAA?","edges":[[0,1],[0,3],[0,4],[0,5],[0,6],[0,7],[1,2]],"degree_sequence":[6,2,1,1,1,1,1,1],"automorphism_count":120,"graceful_labeling_count_raw":960,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":13301,"pruned":13848,"complete_labelings":960,"elapsed_seconds":0.12746729998616502},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0016","graph6":"GsOGQ?","edges":[[0,1],[0,4],[0,7],[1,2],[1,3],[4,5],[4,6]],"degree_sequence":[3,3,3,1,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":256,"graceful_labeling_count_mod_aut":32,"stats":{"nodes":8429,"pruned":12832,"complete_labelings":256,"elapsed_seconds":0.07084830000530928},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0017","graph6":"GsOI?C","edges":[[0,1],[0,4],[0,6],[1,2],[1,3],[4,5],[6,7]],"degree_sequence":[3,3,2,2,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":64,"graceful_labeling_count_mod_aut":16,"stats":{"nodes":9629,"pruned":14672,"complete_labelings":64,"elapsed_seconds":0.04991989998961799},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":true},{"n":8,"tree_id":"n08_t0018","graph6":"GsOIA?","edges":[[0,1],[0,4],[0,6],[0,7],[1,2],[1,3],[4,5]],"degree_sequence":[4,3,2,1,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":160,"graceful_labeling_count_mod_aut":40,"stats":{"nodes":8485,"pruned":12928,"complete_labelings":160,"elapsed_seconds":0.05108879998442717},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0019","graph6":"GsPAA?","edges":[[0,1],[0,4],[0,5],[0,6],[0,7],[1,2],[1,3]],"degree_sequence":[5,3,1,1,1,1,1,1],"automorphism_count":48,"graceful_labeling_count_raw":1056,"graceful_labeling_count_mod_aut":22,"stats":{"nodes":11837,"pruned":13680,"complete_labelings":1056,"elapsed_seconds":0.12723990000085905},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0020","graph6":"Gs`?GG","edges":[[0,1],[0,5],[1,2],[1,3],[1,4],[5,6],[5,7]],"degree_sequence":[4,3,2,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":96,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":10133,"pruned":14712,"complete_labelings":96,"elapsed_seconds":0.05603029998019338},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0021","graph6":"Gs`?I?","edges":[[0,1],[0,5],[0,7],[1,2],[1,3],[1,4],[5,6]],"degree_sequence":[4,3,2,1,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":144,"graceful_labeling_count_mod_aut":24,"stats":{"nodes":10181,"pruned":14664,"complete_labelings":144,"elapsed_seconds":0.061367300018901005},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0022","graph6":"Gs`AA?","edges":[[0,1],[0,5],[0,6],[0,7],[1,2],[1,3],[1,4]],"degree_sequence":[4,4,1,1,1,1,1,1],"automorphism_count":72,"graceful_labeling_count_raw":432,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":13157,"pruned":17508,"complete_labelings":432,"elapsed_seconds":0.08601040000212379},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":8,"tree_id":"n08_t0023","graph6":"GsaA?C","edges":[[0,1],[0,6],[1,2],[1,3],[1,4],[1,5],[6,7]],"degree_sequence":[5,2,2,1,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":192,"graceful_labeling_count_mod_aut":8,"stats":{"nodes":12533,"pruned":14616,"complete_labelings":192,"elapsed_seconds":0.06894159998046234},"extendable_vertices":[0,1,2,3,4,5,6,7],"separate_only":false},{"n":9,"tree_id":"n09_t0001","graph6":"HiPAA@?","edges":[[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8]],"degree_sequence":[8,1,1,1,1,1,1,1,1],"automorphism_count":40320,"graceful_labeling_count_raw":80640,"graceful_labeling_count_mod_aut":2,"stats":{"nodes":287738,"pruned":83504,"complete_labelings":80640,"elapsed_seconds":14.168657100002747},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0002","graph6":"HpD?GC@","edges":[[0,1],[0,5],[1,2],[2,3],[3,4],[5,6],[6,7],[7,8]],"degree_sequence":[2,2,2,2,2,2,2,1,1],"automorphism_count":2,"graceful_labeling_count_raw":120,"graceful_labeling_count_mod_aut":60,"stats":{"nodes":31022,"pruned":59208,"complete_labelings":120,"elapsed_seconds":0.22368709999136627},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0003","graph6":"HpD?GCA","edges":[[0,1],[0,5],[1,2],[2,3],[3,4],[5,6],[6,7],[6,8]],"degree_sequence":[3,2,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":152,"graceful_labeling_count_mod_aut":76,"stats":{"nodes":31054,"pruned":59176,"complete_labelings":152,"elapsed_seconds":0.2009237000020221},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0004","graph6":"HpD?GCC","edges":[[0,1],[0,5],[1,2],[2,3],[3,4],[5,6],[5,8],[6,7]],"degree_sequence":[3,2,2,2,2,2,1,1,1],"automorphism_count":1,"graceful_labeling_count_raw":184,"graceful_labeling_count_mod_aut":184,"stats":{"nodes":31086,"pruned":59144,"complete_labelings":184,"elapsed_seconds":0.19632099999580532},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0005","graph6":"HpD?GD?","edges":[[0,1],[0,5],[0,8],[1,2],[2,3],[3,4],[5,6],[6,7]],"degree_sequence":[3,2,2,2,2,2,1,1,1],"automorphism_count":1,"graceful_labeling_count_raw":192,"graceful_labeling_count_mod_aut":192,"stats":{"nodes":31094,"pruned":59136,"complete_labelings":192,"elapsed_seconds":0.19455630000447854},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0006","graph6":"HpGa?C@","edges":[[0,1],[0,6],[1,2],[2,3],[2,4],[2,5],[6,7],[7,8]],"degree_sequence":[4,2,2,2,2,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":348,"graceful_labeling_count_mod_aut":58,"stats":{"nodes":34962,"pruned":60116,"complete_labelings":348,"elapsed_seconds":0.2671328000142239},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0007","graph6":"HpH?GCA","edges":[[0,1],[0,5],[1,2],[2,3],[2,4],[5,6],[6,7],[6,8]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":256,"graceful_labeling_count_mod_aut":32,"stats":{"nodes":33246,"pruned":60208,"complete_labelings":256,"elapsed_seconds":0.2280612999747973},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0008","graph6":"HpH?GCC","edges":[[0,1],[0,5],[1,2],[2,3],[2,4],[5,6],[5,8],[6,7]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":232,"graceful_labeling_count_mod_aut":116,"stats":{"nodes":33222,"pruned":60232,"complete_labelings":232,"elapsed_seconds":0.26456760001019575},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0009","graph6":"HpH?GD?","edges":[[0,1],[0,5],[0,8],[1,2],[2,3],[2,4],[5,6],[6,7]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":212,"graceful_labeling_count_mod_aut":106,"stats":{"nodes":33202,"pruned":60252,"complete_labelings":212,"elapsed_seconds":0.20011030000750907},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0010","graph6":"HpH?GGC","edges":[[0,1],[0,5],[1,2],[2,3],[2,4],[5,6],[5,7],[5,8]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":480,"graceful_labeling_count_mod_aut":40,"stats":{"nodes":35478,"pruned":62512,"complete_labelings":480,"elapsed_seconds":0.30394429998705164},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0011","graph6":"HpH?GH?","edges":[[0,1],[0,5],[0,8],[1,2],[2,3],[2,4],[5,6],[5,7]],"degree_sequence":[3,3,3,2,1,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":408,"graceful_labeling_count_mod_aut":102,"stats":{"nodes":35406,"pruned":62584,"complete_labelings":408,"elapsed_seconds":0.35826449998421595},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0012","graph6":"HpH?I?@","edges":[[0,1],[0,5],[0,7],[1,2],[2,3],[2,4],[5,6],[7,8]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":168,"graceful_labeling_count_mod_aut":42,"stats":{"nodes":37242,"pruned":67388,"complete_labelings":168,"elapsed_seconds":0.2963572999869939},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0013","graph6":"HpH?I@?","edges":[[0,1],[0,5],[0,7],[0,8],[1,2],[2,3],[2,4],[5,6]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":376,"graceful_labeling_count_mod_aut":94,"stats":{"nodes":35166,"pruned":62616,"complete_labelings":376,"elapsed_seconds":0.2582140999729745},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0014","graph6":"HpIA?C@","edges":[[0,1],[0,6],[1,2],[1,5],[2,3],[2,4],[6,7],[7,8]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":288,"graceful_labeling_count_mod_aut":144,"stats":{"nodes":33654,"pruned":60176,"complete_labelings":288,"elapsed_seconds":0.2617708999896422},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0015","graph6":"HpOGI?@","edges":[[0,1],[0,4],[0,7],[1,2],[2,3],[4,5],[5,6],[7,8]],"degree_sequence":[3,2,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":240,"graceful_labeling_count_mod_aut":120,"stats":{"nodes":35062,"pruned":64168,"complete_labelings":240,"elapsed_seconds":0.2580393999814987},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0016","graph6":"HpOGI@?","edges":[[0,1],[0,4],[0,7],[0,8],[1,2],[2,3],[4,5],[5,6]],"degree_sequence":[4,2,2,2,2,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":336,"graceful_labeling_count_mod_aut":84,"stats":{"nodes":32030,"pruned":58992,"complete_labelings":336,"elapsed_seconds":0.19825369998579845},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0017","graph6":"HpOGOOG","edges":[[0,1],[0,4],[1,2],[2,3],[4,5],[4,6],[4,7],[4,8]],"degree_sequence":[5,2,2,2,1,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":864,"graceful_labeling_count_mod_aut":36,"stats":{"nodes":35478,"pruned":59600,"complete_labelings":864,"elapsed_seconds":0.31548049999400973},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0018","graph6":"HpOGOP?","edges":[[0,1],[0,4],[0,8],[1,2],[2,3],[4,5],[4,6],[4,7]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":264,"graceful_labeling_count_mod_aut":44,"stats":{"nodes":34878,"pruned":60200,"complete_labelings":264,"elapsed_seconds":0.23381919998792},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0019","graph6":"HpOGQ?@","edges":[[0,1],[0,4],[0,7],[1,2],[2,3],[4,5],[4,6],[7,8]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":248,"graceful_labeling_count_mod_aut":124,"stats":{"nodes":36058,"pruned":66204,"complete_labelings":248,"elapsed_seconds":0.29383680000319146},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0020","graph6":"HpOGQ@?","edges":[[0,1],[0,4],[0,7],[0,8],[1,2],[2,3],[4,5],[4,6]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":384,"graceful_labeling_count_mod_aut":96,"stats":{"nodes":33750,"pruned":60080,"complete_labelings":384,"elapsed_seconds":0.27331069999490865},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0021","graph6":"HpOI?D?","edges":[[0,1],[0,4],[0,6],[0,8],[1,2],[2,3],[4,5],[6,7]],"degree_sequence":[4,2,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":376,"graceful_labeling_count_mod_aut":188,"stats":{"nodes":35626,"pruned":66076,"complete_labelings":376,"elapsed_seconds":0.2505836999916937},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0022","graph6":"HpOIA@?","edges":[[0,1],[0,4],[0,6],[0,7],[0,8],[1,2],[2,3],[4,5]],"degree_sequence":[5,2,2,2,1,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":624,"graceful_labeling_count_mod_aut":104,"stats":{"nodes":35062,"pruned":59880,"complete_labelings":624,"elapsed_seconds":0.26907870001741685},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0023","graph6":"Hp_I?C@","edges":[[0,1],[0,6],[1,2],[1,4],[2,3],[4,5],[6,7],[7,8]],"degree_sequence":[3,2,2,2,2,2,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":196,"graceful_labeling_count_mod_aut":98,"stats":{"nodes":35762,"pruned":67520,"complete_labelings":196,"elapsed_seconds":0.2593339000013657},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0024","graph6":"Hp`?GCC","edges":[[0,1],[0,5],[1,2],[1,4],[2,3],[5,6],[5,8],[6,7]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":296,"graceful_labeling_count_mod_aut":148,"stats":{"nodes":33258,"pruned":60208,"complete_labelings":296,"elapsed_seconds":0.29327990001183935},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0025","graph6":"Hp`?GD?","edges":[[0,1],[0,5],[0,8],[1,2],[1,4],[2,3],[5,6],[6,7]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":1,"graceful_labeling_count_raw":228,"graceful_labeling_count_mod_aut":228,"stats":{"nodes":33190,"pruned":60276,"complete_labelings":228,"elapsed_seconds":0.20812249998562038},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0026","graph6":"Hp`?GGC","edges":[[0,1],[0,5],[1,2],[1,4],[2,3],[5,6],[5,7],[5,8]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":6,"graceful_labeling_count_raw":384,"graceful_labeling_count_mod_aut":64,"stats":{"nodes":35902,"pruned":64024,"complete_labelings":384,"elapsed_seconds":0.2795304000028409},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0027","graph6":"Hp`?GH?","edges":[[0,1],[0,5],[0,8],[1,2],[1,4],[2,3],[5,6],[5,7]],"degree_sequence":[3,3,3,2,1,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":388,"graceful_labeling_count_mod_aut":194,"stats":{"nodes":35906,"pruned":64020,"complete_labelings":388,"elapsed_seconds":0.28493059999891557},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0028","graph6":"Hp`?I?@","edges":[[0,1],[0,5],[0,7],[1,2],[1,4],[2,3],[5,6],[7,8]],"degree_sequence":[3,3,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":308,"graceful_labeling_count_mod_aut":154,"stats":{"nodes":38550,"pruned":68328,"complete_labelings":308,"elapsed_seconds":0.24416679999558255},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0029","graph6":"Hp`?I@?","edges":[[0,1],[0,5],[0,7],[0,8],[1,2],[1,4],[2,3],[5,6]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":436,"graceful_labeling_count_mod_aut":218,"stats":{"nodes":36042,"pruned":63972,"complete_labelings":436,"elapsed_seconds":0.31874499999685213},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0030","graph6":"HpaA?C@","edges":[[0,1],[0,6],[1,2],[1,4],[1,5],[2,3],[6,7],[7,8]],"degree_sequence":[4,2,2,2,2,1,1,1,1],"automorphism_count":2,"graceful_labeling_count_raw":364,"graceful_labeling_count_mod_aut":182,"stats":{"nodes":34802,"pruned":60140,"complete_labelings":364,"elapsed_seconds":0.283868500002427},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0031","graph6":"HqD?I?@","edges":[[0,1],[0,3],[0,5],[0,7],[1,2],[3,4],[5,6],[7,8]],"degree_sequence":[4,2,2,2,2,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":528,"graceful_labeling_count_mod_aut":22,"stats":{"nodes":50954,"pruned":90272,"complete_labelings":528,"elapsed_seconds":0.4206980000017211},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0032","graph6":"HqD?I@?","edges":[[0,1],[0,3],[0,5],[0,7],[0,8],[1,2],[3,4],[5,6]],"degree_sequence":[5,2,2,2,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":1008,"graceful_labeling_count_mod_aut":84,"stats":{"nodes":40014,"pruned":68620,"complete_labelings":1008,"elapsed_seconds":0.4865066999918781},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0033","graph6":"HqDAA@?","edges":[[0,1],[0,3],[0,5],[0,6],[0,7],[0,8],[1,2],[3,4]],"degree_sequence":[6,2,2,1,1,1,1,1,1],"automorphism_count":48,"graceful_labeling_count_raw":1632,"graceful_labeling_count_mod_aut":34,"stats":{"nodes":47438,"pruned":67512,"complete_labelings":1632,"elapsed_seconds":0.4829496000020299},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0034","graph6":"HqPAA@?","edges":[[0,1],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[1,2]],"degree_sequence":[7,2,1,1,1,1,1,1,1],"automorphism_count":720,"graceful_labeling_count_raw":7200,"graceful_labeling_count_mod_aut":10,"stats":{"nodes":85186,"pruned":86308,"complete_labelings":7200,"elapsed_seconds":1.5568771999969613},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0035","graph6":"HsOGQ?@","edges":[[0,1],[0,4],[0,7],[1,2],[1,3],[4,5],[4,6],[7,8]],"degree_sequence":[3,3,3,2,1,1,1,1,1],"automorphism_count":8,"graceful_labeling_count_raw":304,"graceful_labeling_count_mod_aut":38,"stats":{"nodes":42750,"pruned":75564,"complete_labelings":304,"elapsed_seconds":0.2585399000090547},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0036","graph6":"HsOGQ@?","edges":[[0,1],[0,4],[0,7],[0,8],[1,2],[1,3],[4,5],[4,6]],"degree_sequence":[4,3,3,1,1,1,1,1,1],"automorphism_count":16,"graceful_labeling_count_raw":800,"graceful_labeling_count_mod_aut":50,"stats":{"nodes":38866,"pruned":66756,"complete_labelings":800,"elapsed_seconds":0.2998483999981545},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0037","graph6":"HsOI?D?","edges":[[0,1],[0,4],[0,6],[0,8],[1,2],[1,3],[4,5],[6,7]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":4,"graceful_labeling_count_raw":464,"graceful_labeling_count_mod_aut":116,"stats":{"nodes":42190,"pruned":75404,"complete_labelings":464,"elapsed_seconds":0.2742421999864746},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0038","graph6":"HsOIA@?","edges":[[0,1],[0,4],[0,6],[0,7],[0,8],[1,2],[1,3],[4,5]],"degree_sequence":[5,3,2,1,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":936,"graceful_labeling_count_mod_aut":78,"stats":{"nodes":41338,"pruned":67700,"complete_labelings":936,"elapsed_seconds":0.3340252000198234},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0039","graph6":"HsPAA@?","edges":[[0,1],[0,4],[0,5],[0,6],[0,7],[0,8],[1,2],[1,3]],"degree_sequence":[6,3,1,1,1,1,1,1,1],"automorphism_count":240,"graceful_labeling_count_raw":6240,"graceful_labeling_count_mod_aut":26,"stats":{"nodes":64750,"pruned":76140,"complete_labelings":6240,"elapsed_seconds":1.2906153000076301},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0040","graph6":"Hs`?GGC","edges":[[0,1],[0,5],[1,2],[1,3],[1,4],[5,6],[5,7],[5,8]],"degree_sequence":[4,4,2,1,1,1,1,1,1],"automorphism_count":72,"graceful_labeling_count_raw":432,"graceful_labeling_count_mod_aut":6,"stats":{"nodes":46114,"pruned":79828,"complete_labelings":432,"elapsed_seconds":0.28147570000146516},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0041","graph6":"Hs`?GH?","edges":[[0,1],[0,5],[0,8],[1,2],[1,3],[1,4],[5,6],[5,7]],"degree_sequence":[4,3,3,1,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":744,"graceful_labeling_count_mod_aut":62,"stats":{"nodes":46426,"pruned":79516,"complete_labelings":744,"elapsed_seconds":0.3190469999972265},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0042","graph6":"Hs`?I?@","edges":[[0,1],[0,5],[0,7],[1,2],[1,3],[1,4],[5,6],[7,8]],"degree_sequence":[4,3,2,2,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":360,"graceful_labeling_count_mod_aut":30,"stats":{"nodes":50566,"pruned":82020,"complete_labelings":360,"elapsed_seconds":0.3384092999913264},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":true},{"n":9,"tree_id":"n09_t0043","graph6":"Hs`?I@?","edges":[[0,1],[0,5],[0,7],[0,8],[1,2],[1,3],[1,4],[5,6]],"degree_sequence":[4,4,2,1,1,1,1,1,1],"automorphism_count":12,"graceful_labeling_count_raw":696,"graceful_labeling_count_mod_aut":58,"stats":{"nodes":47338,"pruned":79564,"complete_labelings":696,"elapsed_seconds":0.326395699987188},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0044","graph6":"Hs`AA@?","edges":[[0,1],[0,5],[0,6],[0,7],[0,8],[1,2],[1,3],[1,4]],"degree_sequence":[5,4,1,1,1,1,1,1,1],"automorphism_count":144,"graceful_labeling_count_raw":3168,"graceful_labeling_count_mod_aut":22,"stats":{"nodes":63578,"pruned":91592,"complete_labelings":3168,"elapsed_seconds":0.752662099985173},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0045","graph6":"HsaA?CA","edges":[[0,1],[0,6],[1,2],[1,3],[1,4],[1,5],[6,7],[6,8]],"degree_sequence":[5,3,2,1,1,1,1,1,1],"automorphism_count":48,"graceful_labeling_count_raw":576,"graceful_labeling_count_mod_aut":12,"stats":{"nodes":61570,"pruned":92932,"complete_labelings":576,"elapsed_seconds":0.4996255000005476},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0046","graph6":"HsaA?D?","edges":[[0,1],[0,6],[0,8],[1,2],[1,3],[1,4],[1,5],[6,7]],"degree_sequence":[5,3,2,1,1,1,1,1,1],"automorphism_count":24,"graceful_labeling_count_raw":768,"graceful_labeling_count_mod_aut":32,"stats":{"nodes":61762,"pruned":92740,"complete_labelings":768,"elapsed_seconds":0.6026980000024196},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false},{"n":9,"tree_id":"n09_t0047","graph6":"HsaCA?@","edges":[[0,1],[0,7],[1,2],[1,3],[1,4],[1,5],[1,6],[7,8]],"degree_sequence":[6,2,2,1,1,1,1,1,1],"automorphism_count":120,"graceful_labeling_count_raw":1200,"graceful_labeling_count_mod_aut":10,"stats":{"nodes":79186,"pruned":92308,"complete_labelings":1200,"elapsed_seconds":0.5158870000159368},"extendable_vertices":[0,1,2,3,4,5,6,7,8],"separate_only":false}];
+</script><script>
+'use strict';
+let transferExample = null, transferFrame = null, transferProgress = 0;
+let transferGroups=[], transferGroupIndex=0, transferPairIndex=0, transferLookup, transferTree;
+function selectTransferPair() {
+  const group=transferGroups[transferGroupIndex];
+  transferExample=group?{t:transferTree,u:group.u,v:group.v,
+    a:transferLookup.get(group.left[Math.floor(transferPairIndex/group.right.length)]),
+    b:transferLookup.get(group.right[transferPairIndex%group.right.length])}:null;
+  document.getElementById('animationPosition').textContent=group?
+    `Directed edge ${transferGroupIndex+1} of ${transferGroups.length}: v${group.u} → v${group.v}. Witness pair ${transferPairIndex+1} of ${group.count.toLocaleString()}.`:'No transfer witnesses available.';
+  renderTransferAnimation(0);
+}
+function cycleTransfer(delta,edge=false) {
+  const playing=transferFrame!==null;stopTransfer();
+  if(!transferGroups.length)return;
+  if(edge){transferGroupIndex=(transferGroupIndex+delta+transferGroups.length)%transferGroups.length;transferPairIndex=0;}
+  else {
+    transferPairIndex+=delta;
+    if(transferPairIndex>=transferGroups[transferGroupIndex].count){transferGroupIndex=(transferGroupIndex+1)%transferGroups.length;transferPairIndex=0;}
+    if(transferPairIndex<0){transferGroupIndex=(transferGroupIndex-1+transferGroups.length)%transferGroups.length;transferPairIndex=transferGroups[transferGroupIndex].count-1;}
+  }
+  selectTransferPair();
+  if(playing)document.getElementById('animationPlay').onclick();
+}
+function stopTransfer() {
+  if (transferFrame !== null) cancelAnimationFrame(transferFrame);
+  transferFrame = null;
+  document.getElementById('animationPlay').textContent = 'Play transfer';
+}
+function setupTransferAnimation(t) {
+  stopTransfer();
+  transferTree=t;transferLookup=new Map(t.labelings.map(r=>[r.id,r]));
+  // Store witness lists, never their potentially enormous Cartesian product.
+  transferGroups=t.edges.flatMap(([u,v])=>[[u,v],[v,u]]).map(([u,v])=>({u,v,left:t.root_witnesses[u],right:t.root_witnesses[v],count:t.root_witnesses[u].length*t.root_witnesses[v].length})).filter(g=>g.count);
+  transferGroupIndex=0;transferPairIndex=0;
+  for(const [id,delta,edge] of [['animationPrev',-1,false],['animationNext',1,false],['animationPrevEdge',-1,true],['animationNextEdge',1,true]]){
+    document.getElementById(id).onclick=()=>cycleTransfer(delta,edge);
+    document.getElementById(id).disabled=!transferGroups.length;
+  }
+  const play = document.getElementById('animationPlay');
+  play.disabled = !transferGroups.length;
+  play.onclick = () => {
+    if (transferFrame !== null) { stopTransfer(); return; }
+    if (transferProgress >= 1) transferProgress = 0;
+    let base = transferProgress, start, restartAt;
+    play.textContent = 'Pause';
+    const tick = time => {
+      if(restartAt!==undefined){
+        if(!document.getElementById('animationLoop').checked){stopTransfer();return;}
+        if(time<restartAt){transferFrame=requestAnimationFrame(tick);return;}
+        base=0;start=time;restartAt=undefined;
+      }
+      start ??= time;
+      renderTransferAnimation(Math.min(1, base + (time-start)/3500));
+      if (transferProgress < 1) transferFrame = requestAnimationFrame(tick);
+      else if(document.getElementById('animationLoop').checked){restartAt=time+650;transferFrame=requestAnimationFrame(tick);}
+      else stopTransfer();
+    };
+    transferFrame = requestAnimationFrame(tick);
+  };
+  document.getElementById('animationReset').onclick = () => {stopTransfer();renderTransferAnimation(0);};
+  document.getElementById('animationProgress').oninput = event => {stopTransfer();renderTransferAnimation(+event.target.value/1000);};
+  selectTransferPair();
+}
+function edgeTransferTokens(t,a,b,p,ease){
+  const anchors=t.edges.map(([u,v])=>[(p[u][0]+p[v][0])/2,(p[u][1]+p[v][1])/2]);
+  return a.edge_lengths.map((length,source)=>{
+    const target=b.edge_lengths.indexOf(length),[x0,y0]=anchors[source],[x1,y1]=anchors[target];
+    const dx=x1-x0,dy=y1-y0,distance=Math.hypot(dx,dy)||1;
+    const bend=source===target?0:Math.min(65,25+distance*.15);
+    const cx=(x0+x1)/2-dy/distance*bend,cy=(y0+y1)/2+dx/distance*bend;
+    const x=(1-ease)**2*x0+2*(1-ease)*ease*cx+ease**2*x1;
+    const y=(1-ease)**2*y0+2*(1-ease)*ease*cy+ease**2*y1;
+    return {length,source,target,x,y,path:`M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}`};
+  });
+}
+function renderTransferAnimation(progress) {
+  transferProgress = progress;
+  document.getElementById('animationProgress').value = Math.round(progress*1000);
+  if (!transferExample) {
+    document.getElementById('animationStatus').textContent = 'No transfer witnesses are available for this tree.';
+    document.getElementById('animationDrawing').innerHTML = '';
+    document.getElementById('animationWitness').textContent = '';
+    return;
+  }
+  const {t,u,v,a,b} = transferExample, p = positions(t), moving = progress>0&&progress<1;
+  const end = progress===1, r = end?b:a, root = end?v:u;
+  const ease = progress*progress*(3-2*progress);
+  let body = '';
+  t.edges.forEach(([x,y]) => {
+    const [ax,ay]=p[x], [bx,by]=p[y];
+    body += `<line class="edge" x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}"/>`;
+  });
+  const edgeTokens=edgeTransferTokens(t,a,b,p,ease);
+  if(moving)for(const token of edgeTokens)if(token.source!==token.target){
+    body+=`<path d="${token.path}" fill="none" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4 5" opacity=".4"/>`;
+  }
+  p.forEach(([x,y],i) => {
+    body += `<circle class="vertex ${!moving&&i===root?'root':''}" cx="${x}" cy="${y}" r="25"/><text class="vid" text-anchor="middle" x="${x}" y="${y+39}">v${i}${i===u?' (from)':i===v?' (to)':''}</text>`;
+  });
+  // Each integer token moves from its original vertex to its destination vertex.
+  a.labels.forEach((label,source) => {
+    const target = b.labels.indexOf(label), [x0,y0]=p[source], [x1,y1]=p[target];
+    const arc = source===target?0:Math.sin(Math.PI*ease)*35*(source<target?1:-1);
+    const x=x0+(x1-x0)*ease+arc, y=y0+(y1-y0)*ease;
+    body += `<g><circle cx="${x}" cy="${y}" r="17" fill="${source===target?'#e1f2ee':'#fddca4'}"/><text class="value" text-anchor="middle" x="${x}" y="${y+6}">${label}</text></g>`;
+  });
+  // Move each difference to the edge carrying that same difference at the endpoint.
+  for(const token of edgeTokens){
+    const {length,source,target,x,y}=token;
+    body+=`<g class="edge-transfer-token" data-length="${length}" data-source="${source}" data-target="${target}" transform="translate(${x} ${y})"><title>Length ${length}: edge ${t.edges[source].join('–')} to edge ${t.edges[target].join('–')}</title><rect x="-13" y="-13" width="26" height="26" rx="3" transform="rotate(45)" fill="${source===target?'#e1f2ee':'#d7f1f6'}" stroke="#0d9488" stroke-width="2"/><text text-anchor="middle" y="5" style="fill:#075565;font-size:15px;font-weight:700">${length}</text></g>`;
+  }
+  document.getElementById('animationDrawing').innerHTML = svg(body);
+  document.getElementById('animationStatus').textContent = moving?`Moving vertex labels and edge lengths from ${a.id} to ${b.id}. Teal diamonds follow edge-length permutations; circles follow vertex-label permutations.`:`${end?'After':'Before'}: ${r.id}, extendable at v${root}.`;
+  const left=a.extendable_vertices[u][0], right=b.extendable_vertices[v][0];
+  if(a.id===b.id){
+    document.getElementById('animationWitness').textContent=`Common witness: ${a.id} works at both roots, so the labels stay fixed while the root changes. At v${u}: c=${left.cut}, k=${left.threshold}. At v${v}: c=${right.cut}, k=${right.threshold}.`;
+    return;
+  }
+  document.getElementById('animationWitness').textContent = `Witness at v${u}: c=${left.cut}, k=${left.threshold}. Witness at v${v}: c=${right.cut}, k=${right.threshold}. ${a.extendable_vertices[v].length?'The starting labeling also works at the destination root; this shows an alternative witness.':'The starting labeling is not extendable at the destination root; the final labeling is.'}`;
+}
+
+</script><script>
+'use strict';
+let catalanTree, catalanIndex=0, catalanFrame=null, catalanModel;
+let polygonSequence=[], polygonBefore, polygonAfter;
+let catalanProgress=0;
+const diagonalKey=(a,b)=>a<b?`${a},${b}`:`${b},${a}`;
+function triangulateDyck(tokens){
+  const word=catWord(tokens), size=word.length/2+2, diagonals=new Set();let leaf=0;
+  function add(a,b){if(Math.abs(a-b)>1&&Math.abs(a-b)<size-1)diagonals.add(diagonalKey(a,b));}
+  function decode(w,lo,hi){
+    if(!w)return `x${leaf++}`;
+    let depth=0,close=0;
+    for(let i=0;i<w.length;i++){depth+=w[i]==='('?1:-1;if(depth===0){close=i;break;}}
+    const left=w.slice(1,close),right=w.slice(close+1),pivot=lo+left.length/2+1;
+    add(lo,pivot);add(pivot,hi);
+    return `(${decode(left,lo,pivot)} · ${decode(right,pivot,hi)})`;
+  }
+  const expression=decode(word,0,size-1);
+  return {size,diagonals:[...diagonals].sort(),expression};
+}
+function pathToFan(diagonals,size){
+  let current=new Set(diagonals);const states=[[...current].sort()];
+  const has=(a,b)=>Math.abs(a-b)===1||Math.abs(a-b)===size-1||current.has(diagonalKey(a,b));
+  while([...current].some(key=>!key.startsWith('0,'))){
+    let moved=false;
+    for(const key of [...current].sort()){
+      const [a,b]=key.split(',').map(Number);
+      if(a===0||!has(0,a)||!has(0,b))continue;
+      for(let c=a+1;c<b;c++)if(has(a,c)&&has(b,c)){
+        current.delete(key);current.add(diagonalKey(0,c));states.push([...current].sort());moved=true;break;
+      }
+      if(moved)break;
+    }
+    if(!moved)throw Error('Cannot find a flip toward the fan');
+  }
+  return states;
+}
+function triangulationFlips(before,after){
+  const a=pathToFan(before.diagonals,before.size),b=pathToFan(after.diagonals,after.size);
+  if(before.diagonals.join(';')===after.diagonals.join(';'))return [before.diagonals];
+  return a.concat(b.slice(0,-1).reverse());
+}
+function expressionFromPolygon(state,size){
+  const diagonals=new Set(state);
+  const has=(a,b)=>b-a===1||b-a===size-1||diagonals.has(diagonalKey(a,b));
+  function decode(lo,hi){
+    if(hi-lo===1)return `x${lo}`;
+    for(let pivot=lo+1;pivot<hi;pivot++)if(has(lo,pivot)&&has(pivot,hi))return `(${decode(lo,pivot)} · ${decode(pivot,hi)})`;
+    throw Error('Missing base triangle');
+  }
+  return decode(0,size-1);
+}
+function endpointPolygon(state,size){
+  const p=Array.from({length:size},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/size;return [140+100*Math.cos(a),120+100*Math.sin(a)];});
+  let body=`<polygon points="${p.map(x=>x.join(',')).join(' ')}" fill="#f4f8f8" stroke="#475569" stroke-width="2"/>`;
+  for(const key of state){const [a,b]=key.split(',').map(Number);body+=`<line x1="${p[a][0]}" y1="${p[a][1]}" x2="${p[b][0]}" y2="${p[b][1]}" stroke="#0d9488" stroke-width="3"/>`;}
+  p.forEach(([x,y],i)=>body+=`<text x="${140+(x-140)*1.13}" y="${125+(y-120)*1.13}" text-anchor="middle" font-size="12">${i}</text>`);
+  return `<svg viewBox="0 0 280 250" role="img" aria-label="Endpoint triangulation">${body}</svg>`;
+}
+function animateParenthesization(progress,step,amount,total){
+  const get=id=>document.getElementById(id),{u,v}=catalanModel;
+  get('encodingRootStatus').textContent=progress===0?`Start: tree rooted at v${u} → its expression and triangulation below.`:progress===1?`Arrived: tree rooted at v${v} → its expression and triangulation below.`:`Rerooting v${u} → v${v}; following the corresponding endpoint encodings.`;
+  get('polygonBeforeEndpoint').style.opacity=String(1-.65*progress);
+  get('polygonAfterEndpoint').style.opacity=String(.35+.65*progress);
+  const left=expressionFromPolygon(polygonSequence[step],polygonBefore.size);
+  const right=expressionFromPolygon(polygonSequence[total?step+1:0],polygonBefore.size);
+  let prefix=0,suffix=0;
+  while(prefix<left.length&&prefix<right.length&&left[prefix]===right[prefix])prefix++;
+  while(suffix<left.length-prefix&&suffix<right.length-prefix&&left[left.length-1-suffix]===right[right.length-1-suffix])suffix++;
+  const mark=(text,color)=>text.slice(0,prefix)+`<span style="color:${color};font-weight:700;background:#fff0d7">`+text.slice(prefix,text.length-suffix)+ '</span>'+text.slice(text.length-suffix);
+  get('parenthesisAnimation').innerHTML=`<p><strong>${!total?'Same binary expression at both roots':progress===1?'Final parenthesization':`Reassociation ${step+1} of ${total}`}</strong></p><div class="expression-stage"><div style="opacity:${1-amount}">${mark(left,'#d97706')}</div><div style="opacity:${amount}">${mark(right,'#7c3aed')}</div></div><p class="cat-expression">${mark(left,'#d97706')} → ${mark(right,'#7c3aed')}</p>`;
+}
+function renderPolygon(progress){
+  const size=polygonBefore.size, total=polygonSequence.length-1;
+  const step=total?Math.min(total-1,Math.floor(progress*total)):0;
+  const amount=total?(progress===1?1:progress*total-step):0;
+  animateParenthesization(progress,step,amount,total);
+  const before=new Set(polygonSequence[step]),after=new Set(polygonSequence[total?step+1:0]);
+  const points=Array.from({length:size},(_,i)=>{const angle=-Math.PI/2+2*Math.PI*i/size;return [180+125*Math.cos(angle),155+125*Math.sin(angle)];});
+  let body=`<polygon points="${points.map(p=>p.join(',')).join(' ')}" fill="#f4f8f8" stroke="#475569" stroke-width="2"/>`;
+  function line(key,color,opacity){const [a,b]=key.split(',').map(Number);return `<line x1="${points[a][0]}" y1="${points[a][1]}" x2="${points[b][0]}" y2="${points[b][1]}" stroke="${color}" stroke-width="3" opacity="${opacity}"/>`;}
+  for(const key of before)body+=line(key,after.has(key)?'#0d9488':'#d97706',after.has(key)?1:1-amount);
+  for(const key of after)if(!before.has(key))body+=line(key,'#7c3aed',amount);
+  points.forEach(([x,y],i)=>{const dx=(x-180)/125,dy=(y-155)/125;body+=`<circle cx="${x}" cy="${y}" r="4" fill="#475569"/><text text-anchor="middle" x="${x+15*dx}" y="${y+15*dy+5}" font-size="13">${i}</text>`;});
+  document.getElementById('catalanPolygon').innerHTML=`<svg viewBox="0 0 360 315" role="img" aria-label="Regular ${size}-gon triangulation">${body}</svg>`;
+  const removed=[...before].find(k=>!after.has(k)),added=[...after].find(k=>!before.has(k));
+  document.getElementById('polygonStatus').textContent=!total?'Same triangulation at both endpoints; no flip needed.':progress===1?`After: ${total} flips completed.`:`Flip ${step+1} of ${total}: diagonal ${removed} → ${added}.`;
+}
+function rerootEncoding(t,u,v) {
+  const adj=Array.from({length:t.n},()=>[]);
+  t.edges.forEach(([x,y])=>{adj[x].push(y);adj[y].push(x);});
+  adj.forEach(ns=>ns.sort((a,b)=>a-b));
+  function forest(root,parent,block) {
+    return adj[root].filter(w=>w!==parent).flatMap(w=>[
+      {char:'(',from:root,to:w,block},...forest(w,root,block),{char:')',from:w,to:root,block}
+    ]);
+  }
+  const A=forest(v,u,'a'), B=forest(u,v,'b');
+  const open={char:'(',from:u,to:v,block:'bridge'}, close={char:')',from:v,to:u,block:'bridge'};
+  // Reversing the bridge direction on rerooting reverses which traversal opens it.
+  return {u,v,A,B,before:[open,...A,close,...B],after:[...A,{...open,from:v,to:u},...B,{...close,from:u,to:v}]};
+}
+const catColor = block => ({a:'#d97706',b:'#0d9488',bridge:'#7c3aed'}[block]);
+function catWord(tokens){return tokens.map(s=>s.char).join('');}
+function catPath(tokens,root) {
+  let height=0, x=35, body='', step=480/tokens.length;
+  const scale=180/Math.max(1,...tokens.map(s=>height+=s.char==='('?1:-1));
+  height=0;
+  body+=`<text x="10" y="20">Depth from root v${root}</text><path d="M30 220H530" stroke="#cbd5e1"/>`;
+  tokens.forEach(s=>{const next=height+(s.char==='('?1:-1), nx=x+step;
+    body+=`<path d="M${x} ${220-height*scale}L${nx} ${220-next*scale}" stroke="${catColor(s.block)}" stroke-width="3" fill="none"><title>v${s.from} to v${s.to}</title></path>`;
+    body+=`<text text-anchor="middle" x="${nx}" y="${240+(s.char==='('?0:15)}" font-size="10">v${s.to}</text>`;
+    x=nx;height=next;
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 270" role="img" aria-label="Dyck path rooted at vertex ${root}">${body}</svg>`;
+}
+function stopCatalan(){if(catalanFrame!==null)cancelAnimationFrame(catalanFrame);catalanFrame=null;document.getElementById('catalanPlay').textContent='Play rerooting + flips';}
+function cycleCatalan(delta){
+  const playing=catalanFrame!==null;stopCatalan();
+  catalanIndex=(catalanIndex+delta+2*catalanTree.edges.length)%(2*catalanTree.edges.length);
+  renderCatalan();if(playing)document.getElementById('catalanPlay').onclick();
+}
+function setupCatalan(t){
+  stopCatalan();catalanTree=t;catalanIndex=0;
+  document.getElementById('catalanEdge').onclick=()=>cycleCatalan(1);
+  document.getElementById('catalanPrev').onclick=()=>cycleCatalan(-1);
+  document.getElementById('catalanReset').onclick=()=>{stopCatalan();renderCatalan();};
+  document.getElementById('catalanProgress').oninput=event=>{stopCatalan();renderCatalanMotion(+event.target.value/1000);};
+  document.getElementById('catalanPlay').onclick=()=>{
+    if(catalanFrame!==null){stopCatalan();return;}
+    if(catalanProgress>=1)catalanProgress=0;
+    let base=catalanProgress,start,restartAt;
+    document.getElementById('catalanPlay').textContent='Pause';
+    const duration=Math.max(2200,(polygonSequence.length-1)*850);
+    const tick=time=>{
+      if(restartAt!==undefined){
+        if(!document.getElementById('catalanLoop').checked){stopCatalan();return;}
+        if(time<restartAt){catalanFrame=requestAnimationFrame(tick);return;}
+        base=0;start=time;restartAt=undefined;
+      }
+      start??=time;const p=Math.min(1,base+(time-start)/duration);renderCatalanMotion(p);
+      if(p<1)catalanFrame=requestAnimationFrame(tick);
+      else if(document.getElementById('catalanLoop').checked){restartAt=time+650;catalanFrame=requestAnimationFrame(tick);}
+      else stopCatalan();
+    };
+    catalanFrame=requestAnimationFrame(tick);
+  };
+  renderCatalan();
+}
+function renderCatalan(){
+  document.getElementById('catalanPosition').textContent=`Rerooting ${catalanIndex+1} of ${2*catalanTree.edges.length} (both directions of every edge, using vertex-ID child order).`;
+  let [u,v]=catalanTree.edges[Math.floor(catalanIndex/2)];if(catalanIndex%2)[u,v]=[v,u];
+  catalanModel=rerootEncoding(catalanTree,u,v);
+  const {A,B,before,after}=catalanModel, get=id=>document.getElementById(id);
+  get('catalanFormula').innerHTML=`<p class="cat-word"><span class="cat-bridge">(</span><span class="cat-a">${catWord(A)||'∅'}</span><span class="cat-bridge">)</span><span class="cat-b">${catWord(B)||'∅'}</span> → <span class="cat-a">${catWord(A)||'∅'}</span><span class="cat-bridge">(</span><span class="cat-b">${catWord(B)||'∅'}</span><span class="cat-bridge">)</span></p>`;
+  const sample=catalanTree.labelings[0];
+  get('catalanBeforeTree').innerHTML=drawing(catalanTree,sample,null,u);
+  get('catalanAfterTree').innerHTML=drawing(catalanTree,sample,null,v);
+  get('catalanBeforePath').innerHTML=catPath(before,u);
+  get('catalanAfterPath').innerHTML=catPath(after,v);
+  polygonBefore=triangulateDyck(before);polygonAfter=triangulateDyck(after);
+  polygonSequence=triangulationFlips(polygonBefore,polygonAfter);
+  get('encodingBeforeTitle').textContent=`Before: encoding with tree root v${u}`;
+  get('encodingAfterTitle').textContent=`After: encoding with tree root v${v}`;
+  get('polygonBeforeEndpoint').innerHTML=endpointPolygon(polygonBefore.diagonals,polygonBefore.size);
+  get('polygonAfterEndpoint').innerHTML=endpointPolygon(polygonAfter.diagonals,polygonAfter.size);
+  get('expressionBeforeEndpoint').textContent=polygonBefore.expression;
+  get('expressionAfterEndpoint').textContent=polygonAfter.expression;
+  get('polygonExpressions').textContent=`Before: ${polygonBefore.expression}\nAfter: ${polygonAfter.expression}`;
+  renderCatalanMotion(0);
+}
+function renderCatalanMotion(progress){
+  catalanProgress=progress;
+  document.getElementById('catalanProgress').value=Math.round(progress*1000);
+  renderPolygon(progress);
+  const {A,B,u,v}=catalanModel, N=A.length+B.length+2, step=480/N;
+  const tokens=[{char:'(',block:'bridge',to:A.length},...A.map((s,i)=>({...s,to:i})),{char:')',block:'bridge',to:N-1},...B.map((s,i)=>({...s,to:A.length+1+i}))];
+  const eased=progress*progress*(3-2*progress);
+  const body=tokens.map((s,i)=>{
+    const x=40+(i+(s.to-i)*eased)*step;
+    const y=65+(s.block==='bridge'?-25:25)*Math.sin(Math.PI*eased);
+    return `<text text-anchor="middle" x="${x}" y="${y}" style="fill:${catColor(s.block)}" font-size="25">${s.char}</text>`;
+  }).join('');
+  document.getElementById('catalanMotion').innerHTML=`<svg viewBox="0 0 560 110" role="img" aria-label="Parentheses rearrange from (A)B to A(B)">${body}</svg>`;
+  document.getElementById('catalanStatus').textContent=`Edge v${u} → v${v}. ${progress===0?'Before: (A)B.':progress===1?'After: A(B).':'Rearranging traversal blocks; moving symbols are not an intermediate tree.'}`;
+}
+
+</script><script>
+'use strict';
+const configurationCache=new Map(),dyckWordCache=new Map([[0,['']]]);
+let configurationTree,configurationCycle=[],configurationIndex=0,configurationGraph;
+function allDyckWords(m){
+  if(dyckWordCache.has(m))return dyckWordCache.get(m);
+  const words=[];for(let k=0;k<m;k++)for(const a of allDyckWords(k))for(const b of allDyckWords(m-1-k))words.push('('+a+')'+b);
+  dyckWordCache.set(m,words);return words;
+}
+function contourConfigurations(t){
+  const adj=Array.from({length:t.n},()=>[]);t.edges.forEach(([u,v])=>{adj[u].push(v);adj[v].push(u);});adj.forEach(ns=>ns.sort((a,b)=>a-b));
+  let u=0,v=adj[0][0];const darts=[];
+  for(let i=0;i<2*t.edges.length;i++){
+    darts.push([u,v]);const w=adj[v][(adj[v].indexOf(u)+1)%adj[v].length];u=v;v=w;
+  }
+  return darts.map(([root,next],index)=>{
+    const depths=Array(t.n).fill(-1),q=[root];depths[root]=0;
+    for(const a of q)for(const b of adj[a])if(depths[b]<0){depths[b]=depths[a]+1;q.push(b);}
+    const tokens=darts.map((_,j)=>{const [from,to]=darts[(index+j)%darts.length];return {from,to,char:depths[to]>depths[from]?'(':')'};});
+    return {root,next,tokens,word:catWord(tokens),polygon:triangulateDyck(tokens)};
+  });
+}
+function associahedronGraph(m){
+  if(configurationCache.has(m))return configurationCache.get(m);
+  const nodes=allDyckWords(m).map(word=>({word,...triangulateDyck([...word].map(char=>({char})))}));
+  const buckets=new Map(),edges=[];
+  nodes.forEach((node,i)=>node.diagonals.forEach((_,j)=>{
+    const key=node.diagonals.filter((_,k)=>j!==k).join(';');
+    if(buckets.has(key))edges.push([buckets.get(key),i]);else buckets.set(key,i);
+  }));
+  const graph={nodes,edges,lookup:new Map(nodes.map((node,i)=>[node.diagonals.join(';'),i]))};
+  configurationCache.set(m,graph);return graph;
+}
+function setupConfigurations(t){
+  configurationTree=t;configurationIndex=0;configurationCycle=contourConfigurations(t);
+  // Full Catalan graphs grow exponentially. Larger future catalogs still get the contour view.
+  configurationGraph=t.n<=9?associahedronGraph(t.n-1):null;
+  document.getElementById('configPrev').onclick=()=>cycleConfiguration(-1);
+  document.getElementById('configNext').onclick=()=>cycleConfiguration(1);
+  const select=event=>{const node=event.target.closest('[data-corner]');if(node){configurationIndex=+node.dataset.corner;renderConfigurations();}};
+  document.getElementById('configCycle').onclick=select;
+  document.getElementById('configCycle').onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select(event);}};
+  renderConfigurations();
+}
+function cycleConfiguration(delta){configurationIndex=(configurationIndex+delta+configurationCycle.length)%configurationCycle.length;renderConfigurations();}
+function configRing(count,radius,cx,cy){return Array.from({length:count},(_,i)=>{const a=-Math.PI/2+2*Math.PI*i/count;return [cx+radius*Math.cos(a),cy+radius*Math.sin(a)];});}
+function renderConfigurations(){
+  const get=id=>document.getElementById(id),states=configurationCycle,index=configurationIndex,state=states[index],next=states[(index+1)%states.length],t=configurationTree;
+  const p=configRing(states.length,130,180,175);let body='';
+  p.forEach(([x,y],i)=>{const [xx,yy]=p[(i+1)%p.length];body+=`<line x1="${x}" y1="${y}" x2="${xx}" y2="${yy}" stroke="${i===index?'#7c3aed':'#cbd5e1'}" stroke-width="${i===index?4:2}"/>`;});
+  p.forEach(([x,y],i)=>{body+=`<g data-corner="${i}" tabindex="0" role="button" aria-label="Corner ${i+1}, root ${states[i].root}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="18" fill="${i===index?'#e6d9f4':'white'}" stroke="#7c3aed"/><text x="${x}" y="${y+4}" text-anchor="middle" font-size="12">v${states[i].root}</text><text x="${x}" y="${y-23}" text-anchor="middle" font-size="10">${i+1}</text></g>`;});
+  get('configCycle').innerHTML=`<svg viewBox="0 0 360 350" role="img" aria-label="Cyclic contour rerootings">${body}</svg>`;
+  get('configStatus').textContent=`Corner ${index+1} of ${states.length}: root v${state.root}; next step crosses v${state.root} → v${next.root}. Neighbors keep the same cyclic order throughout.`;
+  get('configPolygon').innerHTML=endpointPolygon(state.polygon.diagonals,state.polygon.size);
+  get('configWord').textContent=`${state.word}\n${state.polygon.expression}`;
+  const ids=t.root_witnesses[state.root],nextIds=new Set(t.root_witnesses[next.root]),common=ids.filter(id=>nextIds.has(id));
+  get('configWitness').textContent=`W(v${state.root}): ${ids.length} raw witnesses. W(v${next.root}): ${t.root_witnesses[next.root].length}. Common witnesses: ${common.length}.`;
+  get('configRootSets').innerHTML='<table><tr><th>Root</th><th>|Wᵣ|</th></tr>'+Array.from({length:t.n},(_,r)=>`<tr${r===state.root?' class="selected"':''}><td>v${r}</td><td>${t.root_witnesses[r].length}</td></tr>`).join('')+'</table>';
+  renderConfigurationGraph(state,next);
+}
+function renderConfigurationGraph(state,next){
+  const get=id=>document.getElementById(id),g=configurationGraph;
+  if(!g){get('configAssociahedron').innerHTML='';get('configGraphInfo').textContent='Full flip graph omitted above 8 edges to keep browsing responsive.';return;}
+  const points=configRing(g.nodes.length,g.nodes.length===1?0:145,180,175);
+  const id=polygon=>g.lookup.get(polygon.diagonals.join(';'));
+  const visited=new Set(configurationCycle.map(s=>id(s.polygon))),active=id(state.polygon),destination=id(next.polygon);
+  const route=triangulationFlips(state.polygon,next.polygon).map(ds=>g.lookup.get(ds.join(';')));
+  function line(a,b,color,width,opacity){return `<line x1="${points[a][0]}" y1="${points[a][1]}" x2="${points[b][0]}" y2="${points[b][1]}" stroke="${color}" stroke-width="${width}" opacity="${opacity}"/>`;}
+  let body=g.edges.map(([a,b])=>line(a,b,'#94a3b8',.7,.2)).join('');
+  for(let i=1;i<route.length;i++)body+=line(route[i-1],route[i],'#7c3aed',2,1);
+  points.forEach(([x,y],i)=>{body+=`<circle cx="${x}" cy="${y}" r="${i===active?7:visited.has(i)?4:1.5}" fill="${i===active?'#7c3aed':i===destination?'#0d9488':visited.has(i)?'#d97706':'#94a3b8'}"><title>Configuration ${i+1}: ${g.nodes[i].word}</title></circle>`;});
+  get('configAssociahedron').innerHTML=`<svg viewBox="0 0 360 350" role="img" aria-label="Associahedron flip graph with contour encodings highlighted">${body}</svg>`;
+  get('configGraphInfo').textContent=`${g.nodes.length} triangulations; ${g.edges.length} flip edges. The contour reaches ${visited.size} distinct encodings. Selected: ${active+1} → ${destination+1}; highlighted route: ${route.length-1} flips.`;
+}
+
+</script><script>
+const TREE_HTML_PARTS={"n02_t0001":["data/n02_t0001_part_001.html","data/n02_t0001_part_002.html"],"n03_t0001":["data/n03_t0001_part_001.html","data/n03_t0001_part_002.html"],"n04_t0001":["data/n04_t0001_part_001.html","data/n04_t0001_part_002.html"],"n04_t0002":["data/n04_t0002_part_001.html","data/n04_t0002_part_002.html"],"n05_t0001":["data/n05_t0001_part_001.html","data/n05_t0001_part_002.html"],"n05_t0002":["data/n05_t0002_part_001.html","data/n05_t0002_part_002.html"],"n05_t0003":["data/n05_t0003_part_001.html","data/n05_t0003_part_002.html"],"n06_t0001":["data/n06_t0001_part_001.html","data/n06_t0001_part_002.html"],"n06_t0002":["data/n06_t0002_part_001.html","data/n06_t0002_part_002.html"],"n06_t0003":["data/n06_t0003_part_001.html","data/n06_t0003_part_002.html"],"n06_t0004":["data/n06_t0004_part_001.html","data/n06_t0004_part_002.html"],"n06_t0005":["data/n06_t0005_part_001.html","data/n06_t0005_part_002.html"],"n06_t0006":["data/n06_t0006_part_001.html","data/n06_t0006_part_002.html"],"n07_t0001":["data/n07_t0001_part_001.html","data/n07_t0001_part_002.html"],"n07_t0002":["data/n07_t0002_part_001.html","data/n07_t0002_part_002.html"],"n07_t0003":["data/n07_t0003_part_001.html","data/n07_t0003_part_002.html"],"n07_t0004":["data/n07_t0004_part_001.html","data/n07_t0004_part_002.html"],"n07_t0005":["data/n07_t0005_part_001.html","data/n07_t0005_part_002.html"],"n07_t0006":["data/n07_t0006_part_001.html","data/n07_t0006_part_002.html"],"n07_t0007":["data/n07_t0007_part_001.html","data/n07_t0007_part_002.html"],"n07_t0008":["data/n07_t0008_part_001.html","data/n07_t0008_part_002.html"],"n07_t0009":["data/n07_t0009_part_001.html","data/n07_t0009_part_002.html"],"n07_t0010":["data/n07_t0010_part_001.html","data/n07_t0010_part_002.html"],"n07_t0011":["data/n07_t0011_part_001.html","data/n07_t0011_part_002.html"],"n08_t0001":["data/n08_t0001_part_001.html","data/n08_t0001_part_002.html","data/n08_t0001_part_003.html","data/n08_t0001_part_004.html","data/n08_t0001_part_005.html","data/n08_t0001_part_006.html","data/n08_t0001_part_007.html"],"n08_t0002":["data/n08_t0002_part_001.html","data/n08_t0002_part_002.html"],"n08_t0003":["data/n08_t0003_part_001.html","data/n08_t0003_part_002.html"],"n08_t0004":["data/n08_t0004_part_001.html","data/n08_t0004_part_002.html"],"n08_t0005":["data/n08_t0005_part_001.html","data/n08_t0005_part_002.html"],"n08_t0006":["data/n08_t0006_part_001.html","data/n08_t0006_part_002.html"],"n08_t0007":["data/n08_t0007_part_001.html","data/n08_t0007_part_002.html"],"n08_t0008":["data/n08_t0008_part_001.html","data/n08_t0008_part_002.html"],"n08_t0009":["data/n08_t0009_part_001.html","data/n08_t0009_part_002.html"],"n08_t0010":["data/n08_t0010_part_001.html","data/n08_t0010_part_002.html"],"n08_t0011":["data/n08_t0011_part_001.html","data/n08_t0011_part_002.html"],"n08_t0012":["data/n08_t0012_part_001.html","data/n08_t0012_part_002.html"],"n08_t0013":["data/n08_t0013_part_001.html","data/n08_t0013_part_002.html"],"n08_t0014":["data/n08_t0014_part_001.html","data/n08_t0014_part_002.html"],"n08_t0015":["data/n08_t0015_part_001.html","data/n08_t0015_part_002.html"],"n08_t0016":["data/n08_t0016_part_001.html","data/n08_t0016_part_002.html"],"n08_t0017":["data/n08_t0017_part_001.html","data/n08_t0017_part_002.html"],"n08_t0018":["data/n08_t0018_part_001.html","data/n08_t0018_part_002.html"],"n08_t0019":["data/n08_t0019_part_001.html","data/n08_t0019_part_002.html"],"n08_t0020":["data/n08_t0020_part_001.html","data/n08_t0020_part_002.html"],"n08_t0021":["data/n08_t0021_part_001.html","data/n08_t0021_part_002.html"],"n08_t0022":["data/n08_t0022_part_001.html","data/n08_t0022_part_002.html"],"n08_t0023":["data/n08_t0023_part_001.html","data/n08_t0023_part_002.html"],"n09_t0001":["data/n09_t0001_part_001.html","data/n09_t0001_part_002.html","data/n09_t0001_part_003.html","data/n09_t0001_part_004.html","data/n09_t0001_part_005.html","data/n09_t0001_part_006.html","data/n09_t0001_part_007.html","data/n09_t0001_part_008.html","data/n09_t0001_part_009.html","data/n09_t0001_part_010.html","data/n09_t0001_part_011.html","data/n09_t0001_part_012.html","data/n09_t0001_part_013.html","data/n09_t0001_part_014.html","data/n09_t0001_part_015.html","data/n09_t0001_part_016.html","data/n09_t0001_part_017.html","data/n09_t0001_part_018.html","data/n09_t0001_part_019.html","data/n09_t0001_part_020.html","data/n09_t0001_part_021.html","data/n09_t0001_part_022.html","data/n09_t0001_part_023.html","data/n09_t0001_part_024.html","data/n09_t0001_part_025.html","data/n09_t0001_part_026.html","data/n09_t0001_part_027.html","data/n09_t0001_part_028.html","data/n09_t0001_part_029.html","data/n09_t0001_part_030.html","data/n09_t0001_part_031.html","data/n09_t0001_part_032.html","data/n09_t0001_part_033.html","data/n09_t0001_part_034.html","data/n09_t0001_part_035.html","data/n09_t0001_part_036.html","data/n09_t0001_part_037.html","data/n09_t0001_part_038.html","data/n09_t0001_part_039.html","data/n09_t0001_part_040.html","data/n09_t0001_part_041.html","data/n09_t0001_part_042.html"],"n09_t0002":["data/n09_t0002_part_001.html","data/n09_t0002_part_002.html"],"n09_t0003":["data/n09_t0003_part_001.html","data/n09_t0003_part_002.html"],"n09_t0004":["data/n09_t0004_part_001.html","data/n09_t0004_part_002.html"],"n09_t0005":["data/n09_t0005_part_001.html","data/n09_t0005_part_002.html"],"n09_t0006":["data/n09_t0006_part_001.html","data/n09_t0006_part_002.html"],"n09_t0007":["data/n09_t0007_part_001.html","data/n09_t0007_part_002.html"],"n09_t0008":["data/n09_t0008_part_001.html","data/n09_t0008_part_002.html"],"n09_t0009":["data/n09_t0009_part_001.html","data/n09_t0009_part_002.html"],"n09_t0010":["data/n09_t0010_part_001.html","data/n09_t0010_part_002.html"],"n09_t0011":["data/n09_t0011_part_001.html","data/n09_t0011_part_002.html"],"n09_t0012":["data/n09_t0012_part_001.html","data/n09_t0012_part_002.html"],"n09_t0013":["data/n09_t0013_part_001.html","data/n09_t0013_part_002.html"],"n09_t0014":["data/n09_t0014_part_001.html","data/n09_t0014_part_002.html"],"n09_t0015":["data/n09_t0015_part_001.html","data/n09_t0015_part_002.html"],"n09_t0016":["data/n09_t0016_part_001.html","data/n09_t0016_part_002.html"],"n09_t0017":["data/n09_t0017_part_001.html","data/n09_t0017_part_002.html"],"n09_t0018":["data/n09_t0018_part_001.html","data/n09_t0018_part_002.html"],"n09_t0019":["data/n09_t0019_part_001.html","data/n09_t0019_part_002.html"],"n09_t0020":["data/n09_t0020_part_001.html","data/n09_t0020_part_002.html"],"n09_t0021":["data/n09_t0021_part_001.html","data/n09_t0021_part_002.html"],"n09_t0022":["data/n09_t0022_part_001.html","data/n09_t0022_part_002.html"],"n09_t0023":["data/n09_t0023_part_001.html","data/n09_t0023_part_002.html"],"n09_t0024":["data/n09_t0024_part_001.html","data/n09_t0024_part_002.html"],"n09_t0025":["data/n09_t0025_part_001.html","data/n09_t0025_part_002.html"],"n09_t0026":["data/n09_t0026_part_001.html","data/n09_t0026_part_002.html"],"n09_t0027":["data/n09_t0027_part_001.html","data/n09_t0027_part_002.html"],"n09_t0028":["data/n09_t0028_part_001.html","data/n09_t0028_part_002.html"],"n09_t0029":["data/n09_t0029_part_001.html","data/n09_t0029_part_002.html"],"n09_t0030":["data/n09_t0030_part_001.html","data/n09_t0030_part_002.html"],"n09_t0031":["data/n09_t0031_part_001.html","data/n09_t0031_part_002.html"],"n09_t0032":["data/n09_t0032_part_001.html","data/n09_t0032_part_002.html"],"n09_t0033":["data/n09_t0033_part_001.html","data/n09_t0033_part_002.html"],"n09_t0034":["data/n09_t0034_part_001.html","data/n09_t0034_part_002.html","data/n09_t0034_part_003.html","data/n09_t0034_part_004.html","data/n09_t0034_part_005.html"],"n09_t0035":["data/n09_t0035_part_001.html","data/n09_t0035_part_002.html"],"n09_t0036":["data/n09_t0036_part_001.html","data/n09_t0036_part_002.html"],"n09_t0037":["data/n09_t0037_part_001.html","data/n09_t0037_part_002.html"],"n09_t0038":["data/n09_t0038_part_001.html","data/n09_t0038_part_002.html"],"n09_t0039":["data/n09_t0039_part_001.html","data/n09_t0039_part_002.html","data/n09_t0039_part_003.html","data/n09_t0039_part_004.html","data/n09_t0039_part_005.html"],"n09_t0040":["data/n09_t0040_part_001.html","data/n09_t0040_part_002.html"],"n09_t0041":["data/n09_t0041_part_001.html","data/n09_t0041_part_002.html"],"n09_t0042":["data/n09_t0042_part_001.html","data/n09_t0042_part_002.html"],"n09_t0043":["data/n09_t0043_part_001.html","data/n09_t0043_part_002.html"],"n09_t0044":["data/n09_t0044_part_001.html","data/n09_t0044_part_002.html","data/n09_t0044_part_003.html"],"n09_t0045":["data/n09_t0045_part_001.html","data/n09_t0045_part_002.html"],"n09_t0046":["data/n09_t0046_part_001.html","data/n09_t0046_part_002.html"],"n09_t0047":["data/n09_t0047_part_001.html","data/n09_t0047_part_002.html"]};
+
+function readTreePart(file){
+  return new Promise((resolve,reject)=>{
+    const frame=document.createElement('iframe');frame.hidden=true;frame.src=file;
+    let timeout;
+    function finish(error,payload){clearTimeout(timeout);window.removeEventListener('message',receive);frame.remove();error?reject(error):resolve(payload);}
+    function receive(event){
+      if(event.source!==frame.contentWindow||event.data?.kind!=='graceful-tree-part'||event.data.file!==file)return;
+      finish(null,event.data.payload);
+    }
+    window.addEventListener('message',receive);
+    frame.onerror=()=>finish(new Error('Cannot load '+file));
+    timeout=setTimeout(()=>finish(new Error('Timed out loading '+file)),60000);
+    document.body.append(frame);
+  });
+}
+async function loadTreeParts(id,token){
+  const files=TREE_HTML_PARTS[id];
+  if(!files)throw new Error('Unknown tree');
+  const data=await readTreePart(files[0]);data.labelings=[];
+  for(let i=1;i<files.length;i++){
+    if(token!==requestNumber)return null;
+    document.getElementById('status').textContent=`Loading ${id}: part ${i+1} of ${files.length}...`;
+    const part=await readTreePart(files[i]);
+    for(const r of part.labelings)data.labelings.push(r);
+  }
+  return data;
+}
+'use strict';
+const $ = id => document.getElementById(id);
+let tree, records, current, requestNumber = 0;
+const catalog = window.CATALOG_SUMMARY || [];
+const optionPages=new Map(), optionPageSize=200;
+const pagedIds=new Set(['labeling','leftWitness','rightWitness']);
+function options(id,rows){
+  const old=$(id).value;
+  if(pagedIds.has(id)){
+    const selected=rows.findIndex(r=>String(r[0])===old);
+    optionPages.set(id,{rows,page:Math.floor(Math.max(0,selected)/optionPageSize)});
+    renderOptionPage(id,old);return;
+  }
+  $(id).replaceChildren(...rows.map(([value,text])=>new Option(text,value)));
+  if(rows.some(r=>String(r[0])===old))$(id).value=old;
+}
+function renderOptionPage(id,selected=''){
+  const state=optionPages.get(id),count=Math.max(1,Math.ceil(state.rows.length/optionPageSize));
+  state.page=Math.max(0,Math.min(count-1,state.page));
+  const pageRows=state.rows.slice(state.page*optionPageSize,(state.page+1)*optionPageSize);
+  $(id).replaceChildren(...pageRows.map(([value,text])=>new Option(text,value)));
+  if(pageRows.some(r=>String(r[0])===selected))$(id).value=selected;
+  $(id+'Page').value=state.page+1;$(id+'Page').max=count;
+  $(id+'PageInfo').textContent=`of ${count} pages (${state.rows.length.toLocaleString()} total)`;
+  $(id+'Back').disabled=state.page===0;$(id+'More').disabled=state.page===count-1;
+}
+function changeOptionPage(id,delta,page=null){
+  const state=optionPages.get(id);if(!state)return;
+  state.page=page===null?state.page+delta:Math.max(0,(Number(page)||1)-1);
+  renderOptionPage(id);$(id).dispatchEvent(new Event('change'));
+}
+function cycleWitness(id,delta){
+  const state=optionPages.get(id);if(!state?.rows.length)return;
+  const old=state.rows.findIndex(r=>String(r[0])===$(id).value);
+  const next=(old+delta+state.rows.length)%state.rows.length;
+  state.page=Math.floor(next/optionPageSize);renderOptionPage(id,String(state.rows[next][0]));
+  $(id).dispatchEvent(new Event('change'));
+}
+const svg = body => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 390">${body}</svg>`;
+function positions(t, f, slab) {
+  if (slab) return Array.from({length:t.n}, (_,v) => [65 + v*430/(t.n-1), 340-f[v]*290/(t.n-1)]);
+  const adj = Array.from({length:t.n},()=>[]); t.edges.forEach(([u,v])=>{adj[u].push(v);adj[v].push(u);});
+  const layers = [], seen = new Set([0]), queue = [[0,0]];
+  for (const [v,d] of queue) { (layers[d] ||= []).push(v); for (const w of adj[v]) if (!seen.has(w)) { seen.add(w); queue.push([w,d+1]); } }
+  const p = []; layers.forEach((vs,d)=>vs.forEach((v,i)=>p[v]=[560*(i+1)/(vs.length+1),45+295*d/Math.max(1,layers.length-1)])); return p;
+}
+function drawing(t, r, ext=null, root=-1, slab=false, other=null) {
+  const f = r?.labels, p = positions(t,f,slab); let s='';
+  if (slab) for(let h=0;h<t.n;h++) {const y=340-h*290/(t.n-1);s+=`<path d="M35 ${y}H530" stroke="#e0e7eb"/><text x="8" y="${y+5}">${h}</text>`;}
+  if (slab && ext) {const y=340-(ext.cut-.5)*290/(t.n-1);s+=`<path class="cut" d="M30 ${y}H535"/><text x="35" y="${y-6}">c=${ext.cut}</text>`;}
+  t.edges.forEach(([u,v])=>{const d=f?Math.abs(f[u]-f[v]):0, cross=ext&&Math.min(f[u],f[v])<ext.cut&&ext.cut<=Math.max(f[u],f[v]);
+    s+=`<line class="edge ${cross?'crossing':''} ${d===t.n-1?'maximum':''}" x1="${p[u][0]}" y1="${p[u][1]}" x2="${p[v][0]}" y2="${p[v][1]}"/>`;
+    if(f)s+=`<text class="edgeLabel" x="${(p[u][0]+p[v][0])/2+7}" y="${(p[u][1]+p[v][1])/2-7}">${d}</text>`;
+  });
+  p.forEach(([x,y],v)=>{const port=ext&&(f[v]===ext.cut-ext.threshold||f[v]===ext.cut+ext.threshold-1);s+=`<circle class="vertex ${port?'port':''} ${v===root?'root':''} ${other?(f[v]===other.labels[v]?'same':'changed'):''}" cx="${x}" cy="${y}" r="22"/><text text-anchor="middle" class="vid" x="${x}" y="${y-4}">v${v}</text><text text-anchor="middle" class="value" x="${x}" y="${y+14}">${f?f[v]:''}</text>`;});return svg(s);
+}
+function showCatalog() {
+  const list = catalog.filter(t => t.n === +$('order').value);
+  options('treeSelect', list.map((t,i) => [t.tree_id, `Tree ${i+1} of ${list.length}`]));
+  if (list.length) openTree($('treeSelect').value);
+}
+function cycleTree(delta) {
+  const list = [...catalog].sort((a,b)=>a.n-b.n||a.tree_id.localeCompare(b.tree_id));
+  if (!list.length) return;
+  const index = list.findIndex(t => t.tree_id === $('treeSelect').value);
+  const next=list[(index + delta + list.length) % list.length];
+  if(+$('order').value!==next.n){
+    $('order').value=String(next.n);
+    const siblings=list.filter(t=>t.n===next.n);
+    options('treeSelect',siblings.map((t,i)=>[t.tree_id,`Tree ${i+1} of ${siblings.length}`]));
+  }
+  $('treeSelect').value = next.tree_id;
+  openTree($('treeSelect').value);
+}
+function resetResearch() {
+  for (const id of ['rootDegree','cutFilter','thresholdFilter','support','edgeSupport']) $(id).value = '';
+  for (const id of ['atRoot','atBoth']) $(id).checked = false;
+  $('quotient').value = 'aut';
+  for (const id of ['root','second','pair','labeling','extension','leftWitness','rightWitness','leftCut','rightCut']) $(id).value = '';
+  $('advanced').open = true;
+}
+function openTree(id) {
+  stopTransfer();stopCatalan();
+  $('status').textContent = 'Loading local tree data...';
+  const token=++requestNumber, script={remove(){}};
+  script.onload=()=>{if(token===requestNumber){tree=window.CATALOG_TREE;resetResearch();records=new Map(tree.labelings.map(r=>[r.id,r]));$('detail').hidden=false;$('treeTitle').textContent=id;
+    const sample=tree.labelings[0];
+    $('browseGraph').innerHTML=drawing(tree,sample);
+    $('browseSlab').innerHTML=drawing(tree,sample,null,-1,true);
+    $('browseInfo').textContent=`${tree.n} vertices · ${tree.graceful_labeling_count_raw} graceful labelings`;
+    const siblings=catalog.filter(t=>t.n===tree.n);
+    $('status').textContent=`Tree ${siblings.findIndex(t=>t.tree_id===id)+1} of ${siblings.length} with ${tree.n} vertices.`;
+    for(const key of ['root','second'])options(key,Array.from({length:tree.n},(_,v)=>[v,`v${v}`]));
+    options('pair',tree.edges.flatMap(([u,v])=>[[`${u},${v}`,`v${u} → v${v}`],[`${v},${u}`,`v${v} → v${u}`]]));refreshLabelings();refreshPair();setupTransferAnimation(tree);setupCatalan(tree);setupConfigurations(tree);}script.remove();};
+  script.onerror=()=>{$('status').textContent=`Cannot load ${id}. Regenerate the local catalog.`;script.remove();};loadTreeParts(id,token).then(data=>{if(token!==requestNumber)return;window.CATALOG_TREE=data;script.onload();}).catch(()=>{if(token===requestNumber)script.onerror();});
+}
+function refreshLabelings(){
+  const root=+$('root').value, second=+$('second').value, mode=$('quotient').value;
+  const atRoot=$('atRoot').checked,atBoth=$('atBoth').checked,cut=+$('cutFilter').value,threshold=+$('thresholdFilter').value;
+  const degreeMatches=!$('rootDegree').value||tree.edges.filter(e=>e.includes(root)).length===+$('rootDegree').value;
+  let list=degreeMatches?tree.labelings.filter(r=>{
+    if(mode==='aut'&&!r.canonical_aut||mode==='complement'&&!r.canonical_complement)return false;
+    if(atRoot&&!r.extendable_vertices[root].length)return false;
+    if(atBoth&&(!r.extendable_vertices[root].length||!r.extendable_vertices[second].length))return false;
+    return !cut&&!threshold||Object.values(r.extendable_vertices).some(es=>es.some(e=>(!cut||e.cut===cut)&&(!threshold||e.threshold===threshold)));
+  }):[];
+  if(mode==='root'||mode==='pair'){const autos=tree.automorphisms.filter(a=>a[root]===root&&(mode!=='pair'||a[second]===second)), seen=new Set();list=list.filter(r=>{const key=r.labels.join(',');if(seen.has(key))return false;autos.forEach(a=>seen.add(a.map(v=>r.labels[v]).join(',')));return true;});}
+  options('labeling',list.map(r=>[r.id,r.id]));$('labelMeta').textContent=`${list.length} matching representatives / ${tree.labelings.length} raw labelings. For root-sensitive questions use raw or root/pair-preserving symmetry.`;selectLabel();
+}
+const allExtensions = r => Object.entries(r.extendable_vertices).flatMap(([v,es])=>es.map(e=>({...e,vertex:+v})));
+function cutOptions(id,r,root=null){const es=r?(root===null?allExtensions(r):r.extendable_vertices[root].map(e=>({...e,vertex:root}))):[];options(id,es.map(e=>[JSON.stringify(e),`v${e.vertex}: c=${e.cut}, k=${e.threshold}, ${e.side}`]));}
+const selectedCut = id => $(id).value?JSON.parse($(id).value):null;
+function cutText(e){return e?`Cut ${e.cut}; threshold ${e.threshold}; ports at ${e.cut-e.threshold} and ${e.cut+e.threshold-1}. Crossing lengths: ${Array.from({length:tree.n-e.threshold},(_,i)=>i+e.threshold).join(', ')}.`:'No extension witness selected.';}
+function selectLabel(){current=records.get($('labeling').value);cutOptions('extension',current);renderLabel();}
+function renderLabel(){if(!current){for(const id of ['graph','slab','interval','matrix'])$(id).replaceChildren();$('cutInfo').textContent='No matching labeling.';return;}const e=selectedCut('extension');$('graph').innerHTML=drawing(tree,current,e,+$('root').value);$('slab').innerHTML=drawing(tree,current,e,+$('root').value,true);$('cutInfo').textContent=cutText(e);renderIntervals(e);}
+function renderIntervals(ext){let s='',rows='<table><caption>Crossing matrix: rows d, columns c</caption><tr><th>d / c</th>';for(let c=1;c<tree.n;c++)rows+=`<th>${c}</th>`;rows+='</tr>';
+  for(let d=1;d<tree.n;d++){const [u,v]=tree.edges[current.edge_lengths.indexOf(d)],a=Math.min(current.labels[u],current.labels[v]),b=Math.max(current.labels[u],current.labels[v]),y=45+(d-1)*290/(tree.n-1);s+=`<text x="10" y="${y+5}">d=${d}</text><path d="M${65+a*430/(tree.n-1)} ${y}H${65+b*430/(tree.n-1)}" stroke="#0d9488" stroke-width="7"/><text x="${65+a*430/(tree.n-1)}" y="${y-10}">${a}</text><text x="${65+b*430/(tree.n-1)}" y="${y-10}">${b}</text>`;rows+=`<tr><th>${d}</th>`;for(let c=1;c<tree.n;c++){const on=a<c&&c<=b;rows+=`<td class="${on?'on':''} ${ext?.cut===c?'selected':''}">${+on}</td>`;}rows+='</tr>';}
+  if(ext){const x=65+(ext.cut-.5)*430/(tree.n-1);s+=`<path class="cut" d="M${x} 20V350"/>`;}$('interval').innerHTML=svg(s);$('matrix').innerHTML=rows+'</table>';
+}
+function refreshPair(){const [u,v]=$('pair').value.split(',').map(Number),p=tree.adjacent_pairs.find(p=>(p.u===u&&p.v===v)||(p.u===v&&p.v===u));$('pairInfo').textContent=`Witnesses at v${u}: ${tree.root_witnesses[u].length}; at v${v}: ${tree.root_witnesses[v].length}; common: ${p.common.length}; separate only: ${p.separate_only}.`;
+  $('leftTitle').textContent=`Root v${u}`;$('rightTitle').textContent=`Root v${v}`;options('leftWitness',tree.root_witnesses[u].map(id=>[id,id]));refreshRight();}
+function comparison(a,b){const vp=[],ep=[];a.labels.forEach((x,v)=>vp[x]=b.labels[v]);a.edge_lengths.forEach((x,i)=>ep[x]=b.edge_lengths[i]);return {vertex_support:a.labels.filter((x,v)=>x!==b.labels[v]).length,edge_support:a.edge_lengths.filter((x,i)=>x!==b.edge_lengths[i]).length,vertex_permutation:vp,edge_permutation:ep.slice(1),vertex_cycles:cycles(vp,0),edge_cycles:cycles(ep,1)};}
+function cycles(p,start){const seen=new Set(),out=[];for(let i=start;i<p.length;i++){if(seen.has(i))continue;let j=i,c=[];do{seen.add(j);c.push(j);j=p[j];}while(j!==i);out.push(c);}return out;}
+function refreshRight(){const [,v]=$('pair').value.split(',').map(Number),left=records.get($('leftWitness').value);let ids=tree.root_witnesses[v];if(left&&($('support').value||$('edgeSupport').value))ids=ids.filter(id=>{const r=records.get(id);return (!$('support').value||left.labels.filter((x,i)=>x!==r.labels[i]).length===+$('support').value)&&(!$('edgeSupport').value||left.edge_lengths.filter((x,i)=>x!==r.edge_lengths[i]).length===+$('edgeSupport').value)});options('rightWitness',ids.map(id=>[id,id]));refreshCuts();}
+function refreshCuts(){const [u,v]=$('pair').value.split(',').map(Number);cutOptions('leftCut',records.get($('leftWitness').value),u);cutOptions('rightCut',records.get($('rightWitness').value),v);renderTransfer();}
+function renderTransfer(){const a=records.get($('leftWitness').value),b=records.get($('rightWitness').value),[u,v]=$('pair').value.split(',').map(Number);for(const [side,r,root,other] of [['left',a,u,b],['right',b,v,a]]){$(side+'Panel').innerHTML=r?drawing(tree,r,selectedCut(side+'Cut'),root,false,other):'<p>No matching witness.</p>';$(side+'Info').textContent=cutText(selectedCut(side+'Cut'));}
+  if(!a||!b){$('comparison').textContent='Select two available witnesses to compare.';return;}const c=comparison(a,b),fmt=cs=>cs.map(c=>'('+c.join(' ')+')').join('');$('comparison').innerHTML=`<p>Vertex support: ${c.vertex_support}; edge support: ${c.edge_support}. Green: unchanged; amber: changed.</p><p>Vertex cycles: ${fmt(c.vertex_cycles)}<br>Edge-length cycles: ${fmt(c.edge_cycles)}</p>`+changeTable('Vertex',a.labels,b.labels,i=>'v'+i)+changeTable('Edge',a.edge_lengths,b.edge_lengths,i=>tree.edges[i].map(v=>'v'+v).join('–'));}
+function changeTable(title,a,b,name){return `<table><tr><th>${title}</th><th>Left → right</th></tr>`+a.map((x,i)=>`<tr class="${x===b[i]?'same':'changed'}"><td>${name(i)}</td><td>${x} → ${b[i]}</td></tr>`).join('')+'</table>';}
+function download(name,text,type){const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('order').onchange=showCatalog;
+$('treeSelect').onchange=()=>openTree($('treeSelect').value);
+$('treePrev').onclick=()=>cycleTree(-1);
+$('treeNext').onclick=()=>cycleTree(1);
+for(const id of ['root','second','rootDegree','atRoot','atBoth','cutFilter','thresholdFilter','quotient'])$(id).onchange=()=>tree&&refreshLabelings();
+$('labeling').onchange=selectLabel;$('extension').onchange=renderLabel;$('pair').onchange=refreshPair;$('leftWitness').onchange=refreshRight;$('rightWitness').onchange=refreshCuts;
+for(const id of ['support','edgeSupport'])$(id).onchange=refreshRight;for(const id of ['leftCut','rightCut'])$(id).onchange=renderTransfer;
+for(const side of ['left','right'])for(const [suffix,delta] of [['Prev',-1],['Next',1]])$(side+suffix).onclick=()=>cycleWitness(side+'Witness',delta);
+for(const id of pagedIds){
+  $(id+'Back').onclick=()=>changeOptionPage(id,-1);$(id+'More').onclick=()=>changeOptionPage(id,1);
+  $(id+'Page').onchange=()=>changeOptionPage(id,0,$(id+'Page').value);
+}
+
+$('exportGraph6').onclick=()=>download(tree.tree_id+'.g6',tree.graph6+'\n','text/plain');
+$('exportLabel').onclick=()=>{if(current)download(tree.tree_id+'_'+current.id+'.json',JSON.stringify({tree_id:tree.tree_id,n:tree.n,graph6:tree.graph6,edges:tree.edges,labeling:current},null,2),'application/json');};
+$('exportTransfer').onclick=()=>{const a=records.get($('leftWitness').value),b=records.get($('rightWitness').value);if(a&&b)download(tree.tree_id+'_transfer.json',JSON.stringify({tree_id:tree.tree_id,n:tree.n,graph6:tree.graph6,edges:tree.edges,ordered_roots:$('pair').value.split(',').map(Number),left:a,right:b,left_cut:selectedCut('leftCut'),right_cut:selectedCut('rightCut'),comparison:comparison(a,b)},null,2),'application/json');};
+$('exportSVG').onclick=()=>{const s=$($('svgPanel').value).querySelector('svg');if(s){const copy=s.cloneNode(true),style=document.createElementNS('http://www.w3.org/2000/svg','style');style.textContent=Array.from(document.styleSheets).flatMap(sheet=>{try{return Array.from(sheet.cssRules).map(r=>r.cssText);}catch{return [];}}).join('\n');copy.prepend(style);download(tree.tree_id+'_'+$('svgPanel').value+'.svg',new XMLSerializer().serializeToString(copy),'image/svg+xml');}};
+options('order',[...new Set(catalog.map(t=>t.n))].sort((a,b)=>a-b).map(n=>[n,n]));
+document.onpointerdown=event=>{
+  if(event.target.closest('input,select,textarea,button,summary,a,[contenteditable]'))return;
+  const panel=event.target.closest('[data-keyboard-nav]');
+  if(panel)panel.focus({preventScroll:true});
+  else if(document.activeElement?.closest('[data-keyboard-nav]'))document.activeElement.blur();
+};
+document.onkeydown=event=>{
+  if(event.defaultPrevented||event.altKey||event.ctrlKey||event.metaKey||event.isComposing)return;
+  if(event.target.isContentEditable||event.target.closest('input,select,textarea,[contenteditable]'))return;
+  if(!catalog.length)return;
+  const jump={'1':'treeBrowser','2':'transferAnimation','3':'configurationView','4':'catalanView'}[event.key];
+  if(jump&&!event.shiftKey){event.preventDefault();const panel=$(jump);if(panel.tagName==='DETAILS')panel.open=true;panel.focus();return;}
+  const mode=event.target.closest('[data-keyboard-nav]')?.dataset.keyboardNav;
+  if(event.key===' '||event.key.toLowerCase()==='r'){
+    if(event.shiftKey||event.target.closest('summary,a'))return;
+    const prefix=mode==='transfer'?'animation':mode==='catalan'?'catalan':null;
+    if(!prefix)return;
+    event.preventDefault();
+    if(!event.repeat){const button=$(prefix+(event.key===' '?'Play':'Reset'));if(!button.disabled)button.click();}
+    return;
+  }
+  if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;
+  if(event.shiftKey&&mode!=='transfer')return;
+  const delta=event.key==='ArrowRight'?1:-1;
+  event.preventDefault();
+  if(mode==='transfer'&&transferExample)cycleTransfer(delta,event.shiftKey);
+  else if(mode==='configurations'&&configurationTree)cycleConfiguration(delta);
+  else if(mode==='catalan'&&catalanTree)cycleCatalan(delta);
+  else cycleTree(delta);
+};
+if(catalog.length)showCatalog();else $('status').textContent='No local catalog found. Run the generator, then reload this page.';
+
+</script></body></html>
