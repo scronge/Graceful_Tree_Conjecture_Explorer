@@ -3,5 +3,4 @@ An exploration of the **Graceful Tree Conjecture**, investigating graceful label
 
 Try it at [Graceful Tree Explorer](https://scronge.github.io/Graceful_Tree_Conjecture_Explorer/)
 
-
-<img width="600" height="500" alt="image" src="https://github.com/user-attachments/assets/146042bd-8f27-4586-9f49-a04980f0fbce" />
+<img width="255" height="224" alt="image" src="https://github.com/user-attachments/assets/1e487504-3ec2-479b-b143-c59d0f511e66" />
